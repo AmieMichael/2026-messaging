@@ -3,54 +3,2468 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sample Page</title>
+<title>Flywire — Brand &amp; Messaging Review · April 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&family=Maitree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  body { font-family: -apple-system, system-ui, sans-serif; max-width: 720px; margin: 60px auto; padding: 0 24px; line-height: 1.6; color: #222; }
-  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-  .gate { text-align: center; margin-top: 120px; }
-  .gate input { padding: 10px 14px; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; }
-  .gate button { padding: 10px 18px; font-size: 1rem; border: none; background: #0066ff; color: white; border-radius: 6px; margin-left: 8px; cursor: pointer; }
-  .gate .error { color: #c00; margin-top: 12px; min-height: 1.2em; }
-  #content { display: none; }
+:root{
+  /* Flywire brand tokens */
+  --fw-blue:#147BD1;
+  --fw-dark-blue:#0F476B;
+  --fw-green:#48B985;
+  --fw-dark-green:#017043;
+  --fw-light-blue:#87CFFD;
+  --fw-teal:#4CBCA7;
+  --fw-yellow:#EDD462;
+  --fw-pink:#D3556B;
+  --fw-panel:#DCEAF6;
+  --fw-tint:#F0F9FF;
+  --fw-dark-text:#223341;
+  --fw-muted:rgba(15,71,107,0.55);
+
+  --bg:#FFFFFF;
+  --surface:#FFFFFF;
+  --surface-2:#FAFAF9;
+  --surface-warm:#F5F4F1;
+  --border:#E2E8F0;
+  --border-2:#CBD5E1;
+  --text-1:#0F1923;
+  --text-2:#374151;
+  --text-3:#6B7280;
+  --text-4:#9CA3AF;
+
+  --shadow-sm:0 1px 3px rgba(15,71,107,.05);
+  --shadow-md:0 1px 3px rgba(15,71,107,.05),0 6px 20px rgba(15,71,107,.06);
+  --shadow-lg:0 2px 8px rgba(15,71,107,.08),0 12px 40px rgba(15,71,107,.08);
+
+  --sidebar-w:280px;
+  --content-max:960px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Chivo',-apple-system,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--fw-dark-text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+
+/* ══════════════ SIDEBAR ══════════════ */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);
+  background:var(--fw-dark-blue);
+  color:#fff;
+  display:flex;flex-direction:column;
+  border-right:1px solid rgba(255,255,255,.05);
+  z-index:100;
+}
+.sidebar::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--fw-blue) 0%,var(--fw-teal) 35%,var(--fw-green) 70%,var(--fw-dark-green) 100%);
+}
+.side-brand{
+  padding:28px 28px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.side-logo{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:18px;
+}
+.side-f-mark{
+  width:30px;height:30px;
+  background:var(--fw-blue);
+  border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:900;font-size:18px;
+  font-family:'Chivo',sans-serif;
+  letter-spacing:-.5px;
+}
+.side-wordmark{
+  font-size:20px;font-weight:900;color:#fff;
+  letter-spacing:-.5px;
+}
+.side-title{
+  font-size:11px;font-weight:700;
+  color:var(--fw-light-blue);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:4px;
+}
+.side-sub{
+  font-size:13px;color:rgba(255,255,255,.75);
+  line-height:1.5;font-weight:400;
+}
+.side-nav{
+  flex:1;overflow-y:auto;padding:22px 0 20px;
+}
+.side-nav::-webkit-scrollbar{width:4px}
+.side-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
+.nav-group{margin-bottom:18px}
+.nav-group-lbl{
+  font-size:10px;font-weight:700;
+  color:rgba(255,255,255,.35);
+  text-transform:uppercase;letter-spacing:.12em;
+  padding:0 28px 8px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 28px;
+  font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.7);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .15s ease;
+  font-family:inherit;
+  background:none;border-top:none;border-right:none;border-bottom:none;
+  width:100%;text-align:left;cursor:pointer;
+}
+.nav-link:hover{
+  color:#fff;background:rgba(255,255,255,.04);
+}
+.nav-link.active{
+  color:#fff;
+  background:rgba(20,123,209,.15);
+  border-left-color:var(--fw-blue);
+  font-weight:600;
+}
+.nav-link .nav-num{
+  font-size:10px;font-weight:700;
+  color:rgba(255,255,255,.35);
+  font-variant-numeric:tabular-nums;
+  min-width:18px;
+}
+.nav-link.active .nav-num{color:var(--fw-light-blue)}
+.nav-sub{padding-left:20px}
+.nav-sub .nav-link{font-size:12px;padding-top:6px;padding-bottom:6px;padding-left:48px;font-weight:400}
+
+.side-foot{
+  padding:18px 28px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;gap:10px;
+}
+.notes-count{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;color:rgba(255,255,255,.55);
+}
+.notes-count b{color:var(--fw-light-blue);font-weight:700;font-size:13px}
+.side-btn{
+  background:var(--fw-blue);
+  color:#fff;border:none;
+  padding:10px 14px;
+  border-radius:6px;
+  font-size:12px;font-weight:600;
+  font-family:inherit;
+  cursor:pointer;
+  transition:background .15s ease;
+  letter-spacing:.01em;
+}
+.side-btn:hover{background:#1C72B9}
+.side-btn.ghost{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.8);
+}
+.side-btn.ghost:hover{background:rgba(255,255,255,.06);color:#fff}
+
+/* ══════════════ MAIN ══════════════ */
+.main{
+  margin-left:var(--sidebar-w);
+  min-height:100vh;
+  background:var(--bg);
+}
+.section{
+  scroll-margin-top:24px;
+  padding:80px 56px 56px;
+  max-width:calc(var(--content-max) + 112px);
+  margin:0 auto;
+}
+.section:first-of-type{padding-top:56px}
+
+/* Section headers */
+.sec-num{
+  display:inline-block;
+  font-size:11px;font-weight:700;
+  color:var(--fw-blue);
+  text-transform:uppercase;letter-spacing:.14em;
+  padding:5px 12px;
+  background:var(--fw-tint);
+  border-radius:99px;
+  margin-bottom:14px;
+}
+.sec-title{
+  font-size:36px;font-weight:900;
+  color:var(--fw-dark-blue);
+  line-height:1.15;
+  letter-spacing:-.6px;
+  margin-bottom:14px;
+}
+.sec-lede{
+  font-size:16px;color:var(--text-2);
+  line-height:1.65;max-width:680px;
+  margin-bottom:32px;
+  font-weight:400;
+}
+.sec-lede strong{color:var(--fw-dark-blue);font-weight:600}
+
+.sub-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:700;
+  color:var(--fw-dark-blue);
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:8px 14px;
+  background:var(--fw-tint);
+  border-left:3px solid var(--fw-blue);
+  border-radius:0 4px 4px 0;
+  margin:36px 0 16px;
+}
+.sub-label:first-child{margin-top:0}
+
+/* ══════════════ BRIEF HERO ══════════════ */
+.brief-hero{
+  position:relative;
+  background:linear-gradient(135deg,#223341 0%,var(--fw-dark-blue) 35%,var(--fw-blue) 100%);
+  color:#fff;
+  padding:64px 56px 56px;
+  border-radius:18px;
+  margin-bottom:40px;
+  overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.brief-hero::before{
+  content:'';
+  position:absolute;
+  top:0;right:-20%;bottom:0;
+  width:70%;
+  background:linear-gradient(120deg,transparent 40%,rgba(135,207,253,.12) 60%,transparent 80%);
+  transform:skewX(-24deg);
+  pointer-events:none;
+}
+.brief-hero::after{
+  content:'';
+  position:absolute;
+  right:-140px;top:-160px;
+  width:440px;height:440px;
+  border-radius:50%;
+  background:rgba(255,255,255,.04);
+  pointer-events:none;
+}
+.brief-eyebrow{
+  position:relative;z-index:1;
+  display:inline-block;
+  font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.16em;
+  color:var(--fw-light-blue);
+  background:rgba(135,207,253,.12);
+  border:1px solid rgba(135,207,253,.25);
+  padding:5px 14px;border-radius:99px;
+  margin-bottom:22px;
+}
+.brief-h1{
+  position:relative;z-index:1;
+  font-size:clamp(30px,4vw,48px);
+  font-weight:900;
+  color:#fff;
+  line-height:1.1;
+  letter-spacing:-.8px;
+  margin-bottom:18px;
+  max-width:780px;
+  font-family:'Chivo',sans-serif;
+}
+.brief-h1 em{
+  font-style:normal;
+  color:var(--fw-light-blue);
+  font-family:'Maitree',serif;
+  font-weight:500;
+}
+.brief-sub{
+  position:relative;z-index:1;
+  font-size:17px;
+  color:rgba(255,255,255,.82);
+  line-height:1.6;
+  max-width:680px;
+  font-weight:300;
+}
+
+/* Brief cards */
+.brief-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  margin-bottom:32px;
+}
+.brief-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px 26px;
+  box-shadow:var(--shadow-sm);
+}
+.brief-card-lbl{
+  font-size:10px;font-weight:700;
+  color:var(--fw-blue);
+  text-transform:uppercase;letter-spacing:.1em;
+  margin-bottom:10px;
+}
+.brief-card-h{
+  font-size:16px;font-weight:700;
+  color:var(--fw-dark-blue);
+  line-height:1.35;
+  margin-bottom:10px;
+}
+.brief-card-body{
+  font-size:13px;color:var(--text-2);
+  line-height:1.65;
+}
+.brief-card-body ul{padding-left:18px;margin-top:6px}
+.brief-card-body li{margin-bottom:5px}
+
+.brief-roster{
+  background:var(--surface-warm);
+  border-radius:14px;
+  padding:26px 28px;
+  border:1px solid var(--border);
+}
+.roster-lbl{
+  font-size:10px;font-weight:700;
+  color:var(--fw-dark-blue);
+  text-transform:uppercase;letter-spacing:.12em;
+  margin-bottom:14px;
+}
+.roster-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;
+}
+.roster-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;
+  background:#fff;
+  border-radius:10px;
+  border:1px solid var(--border);
+}
+.roster-avatar{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--fw-blue),var(--fw-dark-blue));
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;
+  flex-shrink:0;
+}
+.roster-name{
+  font-size:13px;font-weight:700;
+  color:var(--fw-dark-blue);
+}
+.roster-role{
+  font-size:11px;color:var(--text-3);
+  margin-top:1px;
+}
+
+/* How to use steps */
+.howto{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:24px;
+}
+.howto-item{
+  background:#fff;
+  border:1px solid var(--border);
+  border-left:3px solid var(--fw-blue);
+  border-radius:10px;
+  padding:20px 22px;
+}
+.howto-n{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;
+  border-radius:50%;
+  background:var(--fw-blue);
+  color:#fff;
+  font-size:12px;font-weight:700;
+  margin-bottom:10px;
+}
+.howto-h{
+  font-size:14px;font-weight:700;
+  color:var(--fw-dark-blue);
+  margin-bottom:6px;
+}
+.howto-d{
+  font-size:12px;color:var(--text-3);
+  line-height:1.55;
+}
+
+/* ══════════════ HERO (section) ══════════════ */
+.v-hero{
+  position:relative;
+  padding:44px 40px 40px;
+  border-radius:14px;
+  margin-bottom:28px;
+  overflow:hidden;
+  color:#fff;
+  box-shadow:var(--shadow-md);
+}
+.v-hero::before{
+  content:'';position:absolute;
+  top:0;right:-15%;bottom:0;width:60%;
+  background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.08) 60%,transparent 80%);
+  transform:skewX(-24deg);
+  pointer-events:none;
+}
+.v-hero::after{
+  content:'';position:absolute;
+  right:-100px;top:-120px;
+  width:320px;height:320px;
+  border-radius:50%;
+  background:rgba(255,255,255,.04);
+  pointer-events:none;
+}
+.v-hero.corp{background:linear-gradient(135deg,#0F1923 0%,#1F2937 50%,var(--fw-dark-blue) 100%)}
+.v-hero.ir{background:linear-gradient(135deg,#1F2937 0%,var(--fw-dark-blue) 100%)}
+.v-hero.edu{background:linear-gradient(135deg,var(--fw-blue) 0%,var(--fw-dark-blue) 100%)}
+.v-hero.travel{background:linear-gradient(135deg,var(--fw-green) 0%,var(--fw-dark-green) 100%)}
+.v-hero.b2b{background:linear-gradient(135deg,#1C72B9 0%,var(--fw-dark-blue) 100%)}
+.v-hero.hc{background:linear-gradient(135deg,var(--fw-dark-blue) 0%,#091F2E 100%)}
+.v-hero-eyebrow{
+  position:relative;z-index:1;
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:rgba(255,255,255,.55);
+  margin-bottom:14px;
+}
+.v-hero-h{
+  position:relative;z-index:1;
+  font-size:28px;font-weight:800;
+  color:#fff;
+  line-height:1.2;
+  letter-spacing:-.4px;
+  margin-bottom:12px;
+  max-width:740px;
+}
+.v-hero-sub{
+  position:relative;z-index:1;
+  font-size:14px;
+  color:rgba(255,255,255,.72);
+  line-height:1.6;
+  max-width:640px;
+  margin-bottom:24px;
+}
+.v-hero-stats{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;
+}
+.v-stat{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:9px;
+  padding:14px 16px;
+}
+.v-stat-n{
+  font-size:26px;font-weight:800;
+  color:#fff;
+  line-height:1;
+  letter-spacing:-.5px;
+  margin-bottom:4px;
+}
+.v-stat-l{
+  font-size:11px;
+  color:rgba(255,255,255,.6);
+  line-height:1.35;
+}
+
+/* ══════════════ CARD ══════════════ */
+.card{
+  background:var(--surface);
+  border-radius:14px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  margin-bottom:16px;
+  overflow:hidden;
+  transition:box-shadow .18s ease,transform .12s ease;
+}
+.card:hover{
+  box-shadow:var(--shadow-md);
+  transform:translateY(-1px);
+}
+.card-main{padding:26px 30px 22px}
+.card-tags{
+  display:flex;align-items:center;gap:7px;flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.ctag{
+  display:inline-flex;
+  padding:3px 10px;border-radius:4px;
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+}
+.ctag.web{background:#DBEAFE;color:#1D4ED8}
+.ctag.sales{background:#D1FAE5;color:#065F46}
+.ctag.client{background:var(--fw-panel);color:var(--fw-dark-blue)}
+.ctag.proof{background:#FEF3C7;color:#92400E}
+.ctag.platform{background:#ECFDF5;color:var(--fw-dark-green)}
+.ctag.neutral{background:#F3F4F6;color:#4B5563}
+.ctag.ir{background:#d4eee1;color:var(--fw-dark-green)}
+.ctag.competitive{background:#FDE8EC;color:#9F1239}
+.csrc{
+  font-size:10px;font-weight:600;
+  color:var(--fw-blue);
+  background:var(--fw-tint);
+  padding:3px 9px;border-radius:4px;
+  border:1px solid #DBEAFE;
+}
+.card-hl{
+  font-size:19px;font-weight:700;
+  color:var(--fw-dark-blue);
+  line-height:1.35;
+  letter-spacing:-.2px;
+  margin-bottom:14px;
+}
+.card-body{
+  font-size:13px;
+  color:var(--text-2);
+  line-height:1.7;
+}
+.card-body p{margin-bottom:10px}
+.card-body p:last-child{margin-bottom:0}
+.card-body strong{color:var(--text-1);font-weight:600}
+.card-body ul{padding-left:18px;margin-bottom:10px}
+.card-body ul li{margin-bottom:7px}
+
+/* Feature grid */
+.feat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+  margin:14px 0;
+}
+.feat{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 18px;
+}
+.feat-t{
+  font-size:12px;font-weight:700;
+  color:var(--fw-dark-blue);
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:6px;
+}
+.feat-d{
+  font-size:12px;
+  color:var(--text-3);
+  line-height:1.6;
+}
+
+/* KPI row */
+.kpi-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;
+  margin:14px 0;
+}
+.kpi{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:18px 16px;
+  text-align:center;
+}
+.kpi-n{
+  font-size:32px;font-weight:800;
+  color:var(--fw-blue);
+  line-height:1;
+  margin-bottom:5px;
+  letter-spacing:-.5px;
+}
+.kpi-n.green{color:var(--fw-dark-green)}
+.kpi-n.dark{color:var(--text-1)}
+.kpi-l{
+  font-size:11px;
+  color:var(--text-3);
+  line-height:1.35;
+  font-weight:500;
+}
+
+/* Quote */
+.quote{
+  background:var(--fw-tint);
+  border-left:4px solid var(--fw-blue);
+  border-radius:0 10px 10px 0;
+  padding:16px 20px;
+  margin:14px 0;
+}
+.quote-text{
+  font-family:'Maitree',serif;
+  font-size:15px;
+  font-weight:500;
+  color:var(--fw-dark-blue);
+  line-height:1.6;
+}
+.quote-attr{
+  font-size:11px;
+  color:var(--text-3);
+  margin-top:10px;
+  font-weight:600;
+  font-family:'Chivo',sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+/* Pill row */
+.pill-row{
+  display:flex;flex-wrap:wrap;
+  gap:7px;
+  margin:12px 0;
+}
+.pill{
+  background:#F3F4F6;
+  color:var(--text-2);
+  border-radius:20px;
+  padding:5px 13px;
+  font-size:12px;
+  font-weight:500;
+}
+.pill.b{background:#DBEAFE;color:#1D4ED8}
+.pill.g{background:#D4EEE1;color:var(--fw-dark-green)}
+.pill.p{background:var(--fw-panel);color:#1C72B9}
+
+/* Table */
+.tbl{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+  margin:14px 0;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+.tbl th{
+  background:#F3F4F6;
+  color:var(--text-3);
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  padding:10px 14px;
+  text-align:left;
+  border-bottom:1px solid var(--border-2);
+}
+.tbl td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--text-2);
+  vertical-align:top;
+}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--surface-2)}
+.c-hi{color:var(--fw-blue);font-weight:700}
+.c-yes{color:var(--fw-dark-green);font-weight:600}
+.c-no{color:var(--text-4)}
+.c-row-lbl{font-weight:600;color:var(--text-1)}
+
+/* IR-style highlighted table */
+.ir-table{width:100%;border-collapse:collapse;font-size:12px;margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.ir-table th{background:var(--fw-dark-blue);color:rgba(255,255,255,.75);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:10px 14px;text-align:left}
+.ir-table th.hi{background:var(--fw-blue);color:#fff}
+.ir-table td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text-2)}
+.ir-table td.lbl{font-weight:600;color:var(--text-1)}
+.ir-table td.hi{background:var(--fw-panel);color:var(--fw-dark-blue);font-weight:700}
+.ir-table td.up{color:var(--fw-dark-green);font-weight:700}
+
+/* Steps */
+.steps{display:flex;flex-direction:column;gap:12px;margin:14px 0}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-n{width:28px;height:28px;border-radius:50%;background:var(--fw-blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-t{font-size:13px;font-weight:700;color:var(--fw-dark-blue);margin-bottom:4px}
+.step-d{font-size:12px;color:var(--text-3);line-height:1.6}
+
+/* Win tags */
+.wins{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.win{font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:.03em}
+.win.edu{background:#DBEAFE;color:#1D4ED8}
+.win.hc{background:#d4eee1;color:var(--fw-dark-green)}
+.win.b2b{background:var(--fw-panel);color:#1C72B9}
+.win.tr{background:#D1FAE5;color:#065F46}
+
+/* Notes bar on card */
+.fb-bar{
+  padding:14px 30px 18px;
+  border-top:1px solid #F3F4F6;
+  background:#FAFAF9;
+}
+.fb-lbl{
+  display:block;
+  font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--text-4);
+  margin-bottom:6px;
+}
+.fb-ta{
+  width:100%;min-height:42px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:9px 12px;
+  font-size:12px;
+  font-family:inherit;
+  color:var(--text-1);
+  resize:vertical;
+  background:#fff;
+  transition:border-color .12s,box-shadow .12s;
+  line-height:1.5;
+}
+.fb-ta:focus{
+  outline:none;
+  border-color:var(--fw-blue);
+  box-shadow:0 0 0 3px rgba(20,123,209,.12);
+}
+
+/* ══════════════ FEEDBACK CARDS ══════════════ */
+.fb-panel{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.fb-panel-head{
+  padding:20px 26px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+}
+.fb-panel.bad .fb-panel-head{
+  background:#FEF2F2;
+  border-bottom-color:#FECACA;
+}
+.fb-panel.good .fb-panel-head{
+  background:#ECFDF5;
+  border-bottom-color:#D1FAE5;
+}
+.fb-panel.ok .fb-panel-head{
+  background:var(--fw-tint);
+  border-bottom-color:#DBEAFE;
+}
+.fb-panel-meta{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:8px;
+}
+.fb-badge{
+  font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:3px 9px;
+  border-radius:4px;
+}
+.fb-badge.gap{background:#FEE2E2;color:#991B1B}
+.fb-badge.ok{background:#DBEAFE;color:#1D4ED8}
+.fb-badge.strength{background:#D1FAE5;color:#065F46}
+.fb-src{
+  font-size:10px;
+  color:var(--text-3);
+  font-weight:600;
+}
+.fb-h{
+  font-size:16px;font-weight:700;
+  color:var(--fw-dark-blue);
+  line-height:1.4;
+}
+.fb-panel-body{
+  padding:20px 26px;
+  font-size:13px;
+  color:var(--text-2);
+  line-height:1.7;
+}
+.fb-panel-body p{margin-bottom:10px}
+.fb-panel-body p:last-child{margin-bottom:0}
+
+.phillip-banner{
+  background:linear-gradient(135deg,var(--fw-dark-blue),#091F2E);
+  color:#fff;
+  padding:22px 28px;
+  border-radius:12px;
+  margin-bottom:18px;
+  display:flex;align-items:center;gap:18px;
+  box-shadow:var(--shadow-md);
+}
+.phillip-avatar{
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--fw-blue),var(--fw-light-blue));
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;
+  color:#fff;
+  flex-shrink:0;
+  border:2px solid rgba(255,255,255,.25);
+}
+.phillip-text{
+  flex:1;
+}
+.phillip-lbl{
+  font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--fw-light-blue);
+  margin-bottom:4px;
+}
+.phillip-h{
+  font-size:15px;font-weight:700;
+  color:#fff;
+  line-height:1.4;
+}
+.phillip-date{
+  font-size:12px;
+  color:rgba(255,255,255,.6);
+  margin-top:4px;
+}
+
+/* ══════════════ CONCEPT / OPTION CARD ══════════════ */
+.concept-card{
+  background:#fff;
+  border-radius:16px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-md);
+  margin-bottom:22px;
+  overflow:hidden;
+}
+.concept-card.pinned{
+  border:2px solid var(--fw-blue);
+  box-shadow:0 2px 8px rgba(20,123,209,.12),0 12px 40px rgba(20,123,209,.1);
+}
+.concept-hero{
+  position:relative;
+  padding:36px 38px 32px;
+  background:linear-gradient(135deg,var(--fw-dark-blue) 0%,var(--fw-blue) 100%);
+  color:#fff;
+  overflow:hidden;
+}
+.concept-hero::before{
+  content:'';position:absolute;
+  top:0;right:-20%;bottom:0;width:60%;
+  background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.06) 60%,transparent 80%);
+  transform:skewX(-24deg);
+  pointer-events:none;
+}
+.concept-meta{
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:14px;
+}
+.concept-num{
+  font-size:10px;font-weight:700;
+  color:rgba(255,255,255,.55);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+.concept-badge{
+  font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  padding:4px 10px;
+  border-radius:4px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+}
+.concept-badge.pinned{background:var(--fw-yellow);color:#5c4412;border-color:var(--fw-yellow)}
+.concept-hl{
+  position:relative;z-index:1;
+  font-size:26px;font-weight:800;
+  color:#fff;
+  line-height:1.2;
+  letter-spacing:-.4px;
+  margin-bottom:14px;
+  max-width:720px;
+}
+.concept-hl em{
+  font-style:normal;
+  color:var(--fw-light-blue);
+  font-family:'Maitree',serif;
+  font-weight:500;
+}
+.concept-sub{
+  position:relative;z-index:1;
+  font-size:14px;
+  color:rgba(255,255,255,.8);
+  line-height:1.6;
+  max-width:640px;
+}
+.concept-body{padding:30px 38px 30px}
+.concept-mandate{
+  background:var(--fw-tint);
+  border-left:3px solid var(--fw-blue);
+  padding:14px 18px;
+  border-radius:0 8px 8px 0;
+  font-size:13px;
+  color:var(--fw-dark-blue);
+  font-weight:500;
+  line-height:1.55;
+  margin-bottom:16px;
+}
+.concept-rat{
+  background:var(--surface-warm);
+  border-radius:10px;
+  padding:16px 18px;
+  font-size:12px;
+  color:var(--text-3);
+  line-height:1.7;
+  border:1px solid var(--border);
+}
+.concept-rat strong{color:var(--fw-dark-blue);font-weight:700}
+.concept-verticals{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-top:14px;
+  margin-bottom:14px;
+}
+.cv{
+  font-size:10px;font-weight:600;
+  padding:4px 10px;
+  border-radius:99px;
+  background:var(--fw-panel);
+  color:var(--fw-dark-blue);
+}
+
+.option-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+/* ══════════════ WORKSHOP INPUT ══════════════ */
+.workshop-intro{
+  background:linear-gradient(135deg,var(--fw-tint),#fff);
+  border:1px solid #DBEAFE;
+  border-left:4px solid var(--fw-blue);
+  border-radius:12px;
+  padding:24px 28px;
+  margin-bottom:28px;
+}
+.workshop-form{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:30px 34px;
+  box-shadow:var(--shadow-sm);
+  margin-bottom:18px;
+}
+.ws-field{margin-bottom:24px}
+.ws-field:last-child{margin-bottom:0}
+.ws-label{
+  display:block;
+  font-size:11px;font-weight:700;
+  color:var(--fw-dark-blue);
+  text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:8px;
+}
+.ws-sub{
+  font-size:12px;
+  color:var(--text-3);
+  margin-bottom:10px;
+  line-height:1.55;
+}
+.ws-input,.ws-ta{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:13px;
+  font-family:inherit;
+  color:var(--text-1);
+  background:#fff;
+  transition:border-color .12s,box-shadow .12s;
+  line-height:1.6;
+}
+.ws-input:focus,.ws-ta:focus{
+  outline:none;
+  border-color:var(--fw-blue);
+  box-shadow:0 0 0 3px rgba(20,123,209,.1);
+}
+.ws-ta{min-height:90px;resize:vertical}
+
+/* Footer */
+.page-foot{
+  padding:40px 56px 80px;
+  margin-left:var(--sidebar-w);
+  border-top:1px solid var(--border);
+  margin-top:40px;
+  text-align:center;
+}
+.page-foot-mark{
+  font-size:11px;color:var(--text-4);
+  letter-spacing:.05em;
+}
+
+/* Responsive */
+@media (max-width:1024px){
+  .sidebar{width:240px}
+  .main{margin-left:240px}
+  .page-foot{margin-left:240px}
+  .brief-grid{grid-template-columns:1fr}
+  .howto{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .sidebar{position:relative;width:100%;height:auto}
+  .main{margin-left:0}
+  .page-foot{margin-left:0}
+  .section{padding:48px 24px 40px}
+}
 </style>
 </head>
 <body>
-
-<div id="gate" class="gate">
-  <h2>Enter password</h2>
-  <form onsubmit="checkPassword(event)">
-    <input id="pw" type="password" autofocus>
-    <button type="submit">Enter</button>
-    <div class="error" id="err"></div>
+<div id="__gate" style="position:fixed;inset:0;background:#0F476B;display:flex;align-items:center;justify-content:center;z-index:999999;font-family:-apple-system,system-ui,sans-serif;">
+  <form onsubmit="__checkPw(event)" style="background:#fff;padding:40px 48px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center;min-width:320px;">
+    <h2 style="margin:0 0 8px;color:#0F476B;font-weight:500;">Protected</h2>
+    <p style="margin:0 0 20px;color:#64748b;font-size:0.9rem;">Enter password to view</p>
+    <input id="__pw" type="password" autofocus style="width:100%;padding:12px 14px;font-size:1rem;border:1px solid #cbd5e1;border-radius:6px;box-sizing:border-box;">
+    <button type="submit" style="width:100%;margin-top:12px;padding:12px;font-size:1rem;background:#147BD1;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:500;">Enter</button>
+    <div id="__err" style="color:#D3556B;margin-top:12px;min-height:1.2em;font-size:0.875rem;"></div>
   </form>
 </div>
-
-<div id="content">
-  <h1>Sample Page</h1>
-  <p><em>A test page for GitHub Pages hosting.</em></p>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-  <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <h2>Section Two</h2>
-  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-</div>
-
 <script>
-  function checkPassword(e) {
-    e.preventDefault();
-    const val = document.getElementById('pw').value;
-    if (val === 'fw-mktg') {
-      document.getElementById('gate').style.display = 'none';
-      document.getElementById('content').style.display = 'block';
-      sessionStorage.setItem('auth', '1');
-    } else {
-      document.getElementById('err').textContent = 'Incorrect password';
+  (function(){
+    document.documentElement.style.overflow='hidden';
+    if(sessionStorage.getItem('__auth')==='1'){
+      document.getElementById('__gate').style.display='none';
+      document.documentElement.style.overflow='';
     }
-  }
-  if (sessionStorage.getItem('auth') === '1') {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('content').style.display = 'block';
+  })();
+  function __checkPw(e){
+    e.preventDefault();
+    if(document.getElementById('__pw').value==='marketing'){
+      sessionStorage.setItem('__auth','1');
+      document.getElementById('__gate').style.display='none';
+      document.documentElement.style.overflow='';
+    } else {
+      document.getElementById('__err').textContent='Incorrect password';
+    }
   }
 </script>
 
+<!-- ══════════════════════════════════════════════ SIDEBAR ══════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="side-brand">
+    <div class="side-logo">
+      <div class="side-f-mark">F</div>
+      <div class="side-wordmark">flywire</div>
+    </div>
+    <div class="side-title">Brand &amp; Messaging Review</div>
+    <div class="side-sub">Workshop artifact · April 2026</div>
+  </div>
+  <nav class="side-nav">
+    <div class="nav-group">
+      <div class="nav-group-lbl">Workshop</div>
+      <a href="#brief" class="nav-link active"><span class="nav-num">01</span>Workshop brief</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-lbl">Current messaging</div>
+      <a href="#corporate" class="nav-link"><span class="nav-num">02</span>Corporate</a>
+      <a href="#ir" class="nav-link"><span class="nav-num">03</span>Investor relations</a>
+      <a href="#education" class="nav-link"><span class="nav-num">04</span>Education</a>
+      <a href="#travel" class="nav-link"><span class="nav-num">05</span>Travel &amp; hospitality</a>
+      <a href="#b2b" class="nav-link"><span class="nav-num">06</span>B2B payments</a>
+      <a href="#healthcare" class="nav-link"><span class="nav-num">07</span>Healthcare</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-lbl">Feedback &amp; direction</div>
+      <a href="#feedback" class="nav-link"><span class="nav-num">08</span>Feedback collected</a>
+      <a href="#direction" class="nav-link"><span class="nav-num">09</span>Direction &amp; concepts</a>
+      <a href="#workshop-input" class="nav-link"><span class="nav-num">10</span>Your input</a>
+    </div>
+  </nav>
+  <div class="side-foot">
+    <div class="notes-count">Your notes <b id="nc">0</b></div>
+    <button class="side-btn" onclick="doExport()">Export notes</button>
+    <button class="side-btn ghost" onclick="viewNotes()">View all notes</button>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════ MAIN ══════════════════════════════════════════════ -->
+<main class="main">
+
+<!-- ═══════════ 01 · WORKSHOP BRIEF ═══════════ -->
+<section class="section" id="brief">
+  <div class="brief-hero">
+    <div class="brief-eyebrow">Workshop Artifact · For pre-read</div>
+    <h1 class="brief-h1">A shared view of what Flywire says about itself <em>today</em> — and where our messaging could go next.</h1>
+    <p class="brief-sub">This document compiles our current messaging across channels, captures the feedback we've gathered, and offers direction ideas to shape our corporate, vertical, and IR narrative. It's the starting point for next week's messaging workshop.</p>
+  </div>
+
+  <div class="brief-grid">
+    <div class="brief-card">
+      <div class="brief-card-lbl">Purpose</div>
+      <div class="brief-card-h">What this document does</div>
+      <div class="brief-card-body">
+        <ul>
+          <li><strong>Compile</strong> current messaging across website, collateral, pitch decks, IR scripts, and supplements</li>
+          <li><strong>Surface</strong> feedback collected on site experience, content, internal views, and Phillip R's stakeholder review</li>
+          <li><strong>Propose</strong> direction and concept ideas for Flywire messaging across corporate, verticals, and the IR story</li>
+        </ul>
+      </div>
+    </div>
+    <div class="brief-card">
+      <div class="brief-card-lbl">Workshop</div>
+      <div class="brief-card-h">What we'll do together</div>
+      <div class="brief-card-body">
+        <p>Align on a corporate messaging direction, confirm how it translates to each vertical and the IR story, and agree on what needs to be built or rewritten to get us there.</p>
+        <p>This is a working session, not a review. Come with point of view, reactions, and the messaging you think is missing.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="brief-roster">
+    <div class="roster-lbl">Workshop participants</div>
+    <div class="roster-grid">
+      <div class="roster-item">
+        <div class="roster-avatar">AC</div>
+        <div>
+          <div class="roster-name">Amie Coleman</div>
+          <div class="roster-role">CCO (Host)</div>
+        </div>
+      </div>
+      <div class="roster-item">
+        <div class="roster-avatar">CEO</div>
+        <div>
+          <div class="roster-name">CEO</div>
+          <div class="roster-role">Chief Executive Officer</div>
+        </div>
+      </div>
+      <div class="roster-item">
+        <div class="roster-avatar">CB</div>
+        <div>
+          <div class="roster-name">Chairman</div>
+          <div class="roster-role">Chairman of the Board</div>
+        </div>
+      </div>
+      <div class="roster-item">
+        <div class="roster-avatar">IR</div>
+        <div>
+          <div class="roster-name">Head of IR</div>
+          <div class="roster-role">Investor Relations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="howto">
+    <div class="howto-item">
+      <div class="howto-n">1</div>
+      <div class="howto-h">Read ahead</div>
+      <div class="howto-d">Walk through Sections 02–07 to see how Flywire speaks today across every vertical and the IR story.</div>
+    </div>
+    <div class="howto-item">
+      <div class="howto-n">2</div>
+      <div class="howto-h">Note where you react</div>
+      <div class="howto-d">Every card has a notes field. Use Section 10 for bigger-picture reactions we'll discuss live.</div>
+    </div>
+    <div class="howto-item">
+      <div class="howto-n">3</div>
+      <div class="howto-h">Export before the session</div>
+      <div class="howto-d">Click <em>Export notes</em> in the sidebar to save your thoughts. We'll bring them into the room.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 · CORPORATE ═══════════ -->
+<section class="section" id="corporate">
+  <div class="sec-num">02 · Current messaging</div>
+  <h2 class="sec-title">Corporate</h2>
+  <p class="sec-lede">What Flywire says about itself today across the homepage, pitch deck, and corporate positioning materials. This is the foundation everything else is built on.</p>
+
+  <div class="v-hero corp">
+    <div class="v-hero-eyebrow">Corporate · Brand</div>
+    <h3 class="v-hero-h">What Flywire says about itself today</h3>
+    <p class="v-hero-sub">Current messaging across the homepage, pitch deck, and corporate positioning. What's live, what's working, what needs to evolve.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">4,900+</div><div class="v-stat-l">Enterprise clients globally</div></div>
+      <div class="v-stat"><div class="v-stat-n">240+</div><div class="v-stat-l">Countries &amp; territories</div></div>
+      <div class="v-stat"><div class="v-stat-n">100+</div><div class="v-stat-l">ERP &amp; vertical integrations</div></div>
+      <div class="v-stat"><div class="v-stat-n">&lt;1%</div><div class="v-stat-l">Revenue churn</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Homepage &amp; Public Positioning</div>
+
+  <div class="card" id="c-corp-hero">
+    <div class="card-main">
+      <div class="card-tags">
+        <span class="ctag web">Website</span>
+        <span class="ctag neutral">Homepage Hero</span>
+        <span class="csrc">flywire.com · Live</span>
+      </div>
+      <div class="card-hl">The healthcare / travel / B2B / education payments and software experts.</div>
+      <div class="card-body">
+        <p>Flywire is a global payment enablement and software company that delivers highly valuable payment and receivables outcomes for education, travel, B2B, and healthcare clients worldwide. Flywire combines its global payment network, next-gen payment platform, and vertical-specific software to facilitate urgent, high-stakes payments — removing friction to deliver a better experience for clients and their payers.</p>
+        <div class="pill-row">
+          <span class="pill">240+ countries &amp; territories</span>
+          <span class="pill">140+ currencies</span>
+          <span class="pill">1,200+ payment methods</span>
+          <span class="pill g">~6,000 payment corridors</span>
+          <span class="pill b">100+ system integrations</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="corp-hero" placeholder="Feedback or questions on this message…"></textarea></div>
+  </div>
+
+  <div class="card" id="c-corp-platform">
+    <div class="card-main">
+      <div class="card-tags">
+        <span class="ctag web">Website</span>
+        <span class="ctag platform">Platform Architecture</span>
+        <span class="csrc">Pitch Deck · Corporate Overview</span>
+      </div>
+      <div class="card-hl">Three layers that no horizontal payments company can replicate together</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Global Payment Network</div><div class="feat-d">240+ countries, 140+ currencies, ~6,000 optimized corridors. The infrastructure layer that moves the money — optimized for the specific pathways Flywire's verticals actually use.</div></div>
+          <div class="feat"><div class="feat-t">Next-Gen Payment Platform</div><div class="feat-d">A single receivables platform connecting payer experience, client reconciliation, compliance, and reporting. The intelligence layer — not a transaction processor, a workflow engine.</div></div>
+          <div class="feat"><div class="feat-t">Vertical-Specific Software</div><div class="feat-d">Software built specifically for student financial services, patient billing, hospitality contracts, and AR automation — not repurposed generic software. Built by people who came from these industries.</div></div>
+          <div class="feat"><div class="feat-t">Deep Integration Moat</div><div class="feat-d">100+ pre-built, tested integrations with SIS, EHR, PMS, and ERP systems. Once embedded in Banner, Epic, Opera, or NetSuite, the cost to switch becomes operational — not just contractual.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="corp-platform" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Competitive Differentiation — vs. Stripe, Adyen, or a regional gateway</div>
+
+  <div class="card" id="c-corp-comp">
+    <div class="card-main">
+      <div class="card-tags">
+        <span class="ctag competitive">Competitive</span>
+        <span class="ctag web">Positioning</span>
+        <span class="csrc">Sales Deck · Competitive Overview</span>
+      </div>
+      <div class="card-hl">Horizontal platforms process payments. Flywire solves receivables — for the industries where getting it wrong is not an option.</div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>Capability</th><th>Stripe / Adyen / Braintree</th><th>Flywire</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Vertical depth</td><td class="c-no">Horizontal — same product for Shopify, SaaS, airlines</td><td class="c-hi">Purpose-built for 4 specific verticals</td></tr>
+            <tr><td class="c-row-lbl">Software layer</td><td class="c-no">Payments only — no SIS billing, no patient portal, no AR automation</td><td class="c-hi">Full vertical software bundled with payments</td></tr>
+            <tr><td class="c-row-lbl">System integration</td><td class="c-no">API-first — you build the integration</td><td class="c-hi">100+ pre-built integrations with Banner, Epic, Opera, NetSuite</td></tr>
+            <tr><td class="c-row-lbl">Compliance expertise</td><td class="c-no">General PCI / basic compliance</td><td class="c-hi">HIPAA, FERPA, SOC 2 Type II, PCI Level 1, CTO on PCI Board</td></tr>
+            <tr><td class="c-row-lbl">Client churn</td><td class="c-no">Not disclosed (high in SMB)</td><td class="c-hi">&lt;1% annual revenue churn across 4,900+ enterprise clients</td></tr>
+            <tr><td class="c-row-lbl">High-value payments</td><td class="c-no">Optimized for volume / low ticket</td><td class="c-hi">Tuition, hospital bills, corporate invoices — high-value, high-trust</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="corp-comp" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Trust, Compliance &amp; Credentials</div>
+
+  <div class="card" id="c-corp-trust">
+    <div class="card-main">
+      <div class="card-tags">
+        <span class="ctag platform">Platform</span>
+        <span class="ctag neutral">Trust &amp; Security</span>
+        <span class="csrc">All verticals</span>
+      </div>
+      <div class="card-hl">The compliance posture enterprise clients in regulated industries require — and that most fintech competitors cannot match</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">SOC 2 Type II</div><div class="feat-d">Annual third-party audit of security, availability, and confidentiality controls. The baseline for enterprise software procurement in healthcare, education, and financial services.</div></div>
+          <div class="feat"><div class="feat-t">PCI DSS Level 1</div><div class="feat-d">The highest level of PCI compliance. Flywire's CTO sits on the PCI Security Standards Board of Directors — giving Flywire a direct voice in shaping the standards the industry follows.</div></div>
+          <div class="feat"><div class="feat-t">HIPAA Certified</div><div class="feat-d">Full HIPAA compliance for healthcare clients. Patient financial data handled with the same standards as clinical data. Required to operate in US health systems.</div></div>
+          <div class="feat"><div class="feat-t">GAAP Profitable</div><div class="feat-d">First GAAP net income in FY 2025: $13.5M. Not just EBITDA-profitable — GAAP profitable. A rare milestone for a high-growth fintech and a proof point that the model works at scale.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="corp-trust" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 · INVESTOR RELATIONS ═══════════ -->
+<section class="section" id="ir">
+  <div class="sec-num">03 · Current messaging</div>
+  <h2 class="sec-title">Investor relations</h2>
+  <p class="sec-lede">Earnings scripts, investor narrative, and board-level financial data pulled from Q3 and Q4 2025 earnings calls, board presentations, and investor day materials.</p>
+
+  <div class="v-hero ir">
+    <div class="v-hero-eyebrow">Investor Relations · Board Narrative</div>
+    <h3 class="v-hero-h">Financial performance &amp; investment thesis</h3>
+    <p class="v-hero-sub">How Flywire tells its story to the market — and the data behind it.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">$623M</div><div class="v-stat-l">Revenue · FY 2025</div></div>
+      <div class="v-stat"><div class="v-stat-n">$13.5M</div><div class="v-stat-l">GAAP net income</div></div>
+      <div class="v-stat"><div class="v-stat-n">52%</div><div class="v-stat-l">Adj. EBITDA CAGR since IPO</div></div>
+      <div class="v-stat"><div class="v-stat-n">~5,000</div><div class="v-stat-l">Clients · 2.5× since IPO</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Core Investment Thesis · CEO — 4Q 2025 Earnings Call</div>
+
+  <div class="card" id="c-ir-thesis">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag ir">IR</span><span class="csrc">4Q 2025 Earnings</span></div>
+      <div class="card-hl">"An end-to-end, embedded receivables platform — not a standalone payment solution or point software tool."</div>
+      <div class="card-body">
+        <p>The structural position: embedded in mission-critical financial workflows where data, compliance, workflow, and transaction execution intersect. Complexity creates real barriers to entry. Once embedded, expansion becomes a natural motion — a flywheel of greater volume plus value-added software that reinforces position over time. <strong>We are not a payments company that added software. We are a vertical software company with a global payment network underneath it.</strong></p>
+        <p><strong>The land &amp; expand engine:</strong> Clients begin with cross-border payments. Then they add domestic. Then collection management. Then the student engagement hub or patient affordability suite. Full-platform clients deliver ~2–3× the gross profit of cross-border-only clients, and they churn at rates that are immeasurably low.</p>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n">$623M</div><div class="kpi-l">Revenue · FY 2025</div></div>
+          <div class="kpi"><div class="kpi-n green">$13.5M</div><div class="kpi-l">GAAP net income · First profitable year</div></div>
+          <div class="kpi"><div class="kpi-n green">52%</div><div class="kpi-l">Adj. EBITDA CAGR since IPO</div></div>
+          <div class="kpi"><div class="kpi-n">20%</div><div class="kpi-l">Adj. EBITDA margin · FY 2025</div></div>
+          <div class="kpi"><div class="kpi-n green">$62M</div><div class="kpi-l">Free cash flow · FY 2025</div></div>
+          <div class="kpi"><div class="kpi-n">~5,000</div><div class="kpi-l">Clients · 2.5× since IPO</div></div>
+        </div>
+        <table class="ir-table">
+          <thead><tr><th>Metric</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th class="hi">2025</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Revenue ($M)</td><td>$201</td><td>$289</td><td>$403</td><td>$492</td><td class="hi">$623</td></tr>
+            <tr><td class="lbl">YoY growth</td><td>—</td><td>44%</td><td>39%</td><td>22%</td><td class="hi up">27%</td></tr>
+            <tr><td class="lbl">Adj. EBITDA margin</td><td>13%</td><td>6%</td><td>11%</td><td>16%</td><td class="hi up">20%</td></tr>
+            <tr><td class="lbl">FCF ($M)</td><td>$5</td><td>—</td><td>—</td><td>—</td><td class="hi up">$62</td></tr>
+            <tr><td class="lbl">Total clients</td><td>~2,000</td><td>~3,000</td><td>~3,800</td><td>~4,500</td><td class="hi">~5,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="ir-thesis" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">GTM Engine &amp; Operating Leverage · COO — 4Q 2025 Earnings Call</div>
+
+  <div class="card" id="c-ir-gtm">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag ir">IR</span><span class="csrc">4Q 2025 Earnings</span></div>
+      <div class="card-hl">35%+ pipeline growth. 35%+ signed ARR growth. S&amp;M declining as % of revenue. The GTM motion is becoming structurally more efficient.</div>
+      <div class="card-body">
+        <p>~750 net new clients signed in 2025. Pipeline entering 2026 increased ~35% YoY. Sales &amp; marketing expense declined from 25% → 20% of revenue (2022–2025) while delivering significant revenue and gross profit growth. Non-GAAP opex CAGR of 17% vs. revenue CAGR of 31% — real operating leverage.</p>
+        <p><strong>The compounding effect:</strong> As Flywire becomes more deeply embedded in each vertical, referrals and reputation replace cold outreach. 8/8 Ivies, 64/71 AAU institutions, 17/18 Big 10 schools — these are not won by price. They are won by reputation among peers who already use Flywire and tell each other it works.</p>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n">~750</div><div class="kpi-l">Net new clients signed · 2025</div></div>
+          <div class="kpi"><div class="kpi-n green">35%+</div><div class="kpi-l">Pipeline growth · YoY entering 2026</div></div>
+          <div class="kpi"><div class="kpi-n green">35%+</div><div class="kpi-l">Signed ARR growth · 2025</div></div>
+          <div class="kpi"><div class="kpi-n">20%</div><div class="kpi-l">S&amp;M % of revenue (was 25% in 2022)</div></div>
+        </div>
+        <div style="margin-top:16px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-4);margin-bottom:10px">Q4 2025 New Client Wins — All Verticals</div>
+          <div class="wins">
+            <span class="win edu">Ohio State</span><span class="win edu">Northern Colorado</span><span class="win edu">U. Cumbria</span><span class="win edu">U. Manitoba</span><span class="win edu">UWE Bristol</span><span class="win edu">Emeritus</span><span class="win hc">Emory</span><span class="win hc">Jackson Health</span><span class="win hc">CorneaGen</span><span class="win b2b">Spreetail</span><span class="win b2b">Brunt Workwear</span><span class="win tr">Villa Finder</span><span class="win tr">Destination Spain &amp; Portugal</span><span class="win tr">Pimalai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="ir-gtm" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">The Competitive Moat — Why this position is durable</div>
+
+  <div class="card" id="c-ir-moat">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag ir">IR</span><span class="csrc">Investor Narrative · Differentiation</span></div>
+      <div class="card-hl">Sub-1% annual churn is not a customer success metric. It is proof that 4,900 enterprise organizations have built their financial operations around Flywire and cannot turn it off.</div>
+      <div class="card-body">
+        <p>The moat is not the payment network. Payment networks can be replicated. The moat is the combination of: vertical-specific software that workflows depend on + 100+ pre-built integrations that took years to certify + domain expertise from teams who came from these industries + compliance certifications that took years to earn. <strong>No entrant can replicate all four simultaneously.</strong></p>
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Integration Depth</div><div class="feat-d">100+ pre-built, certified integrations with Banner, Epic, Opera, NetSuite, Workday. Each took 12–24 months to certify. New entrants can't shortcut this.</div></div>
+          <div class="feat"><div class="feat-t">Vertical Software</div><div class="feat-d">SFS billing, Affordability Suite, AR automation, Sertifi contract-to-payment. Replacing Flywire means replacing the software the operations team uses every day.</div></div>
+          <div class="feat"><div class="feat-t">Domain Expertise</div><div class="feat-d">Teams built from SFS directors, hospital billing managers, hospitality finance leads. Institutional knowledge compounds every year and cannot be replicated by a horizontal payments company.</div></div>
+          <div class="feat"><div class="feat-t">Compliance Posture</div><div class="feat-d">HIPAA, FERPA, SOC 2 Type II, PCI Level 1. Each certification requires years to earn and maintain. Required to operate in regulated verticals.</div></div>
+          <div class="feat"><div class="feat-t">Data Flywheel</div><div class="feat-d">Every transaction across 5,000 clients in 4 verticals improves corridor optimization, fraud detection, and payment plan analytics. 10+ years in the making.</div></div>
+          <div class="feat"><div class="feat-t">Network Effects</div><div class="feat-d">8/8 Ivies. 64/71 AAU institutions. Peer reference selling means the next prospect is 10x more likely to buy when a peer already uses Flywire.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="ir-moat" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Market Opportunity &amp; Path Forward · IR Supplement</div>
+
+  <div class="card" id="c-ir-tam">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag ir">IR</span><span class="csrc">IR Supplement · TAM &amp; 2026 Outlook</span></div>
+      <div class="card-hl">Flywire has penetrated a fraction of a multi-hundred-billion-dollar addressable market across four verticals where complex receivables are a daily operational challenge.</div>
+      <div class="card-body">
+        <p><strong>Why the TAM is larger than it appears:</strong> The market is not "payments processing" — it's the management of complex receivables in regulated environments. Every institution in education, travel, B2B, and healthcare that deals with cross-border, multi-currency, or workflow-dependent collections is a potential Flywire client. The competitive set in each vertical is largely legacy software vendors (TouchNet, Transact in education; Epic Tapestry in healthcare) — not sophisticated payments competitors.</p>
+        <table class="ir-table">
+          <thead><tr><th>Vertical</th><th>TAM Estimate</th><th>Flywire Share</th><th>Key Opportunity</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Education</td><td>$14B+</td><td class="up">Early penetration</td><td>Full SFS platform expansion; 50%+ of new EDU from outside Big 4 markets</td></tr>
+            <tr><td class="lbl">Travel &amp; Hospitality</td><td>$8B+</td><td class="up">Scaling</td><td>Sertifi platform; enterprise hotel groups; global DMCs and luxury hospitality</td></tr>
+            <tr><td class="lbl">B2B</td><td>$12B+</td><td class="up">Very early</td><td>Full Invoiced + payments bundle; AR automation for mid-market and enterprise</td></tr>
+            <tr><td class="lbl">Healthcare</td><td>$30B+</td><td class="up">Very early</td><td>Affordability Suite + Epic integration; international patient financial clearance</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:14px"><strong>2026 setup:</strong> Pipeline entering 2026 is up ~35% YoY. GAAP profitability achieved. FCF positive at $62M. The business is now self-funding its growth — a significant shift from the 2021–2023 investment phase. Operating leverage is real and expanding.</p>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="ir-tam" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 · EDUCATION ═══════════ -->
+<section class="section" id="education">
+  <div class="sec-num">04 · Current messaging</div>
+  <h2 class="sec-title">Education</h2>
+  <p class="sec-lede">Flywire's most mature vertical. Messaging is strongest here — anchored by the Flywire 5, the Big 4 market data, and proof from the institutions that set the standard.</p>
+
+  <div class="v-hero edu">
+    <div class="v-hero-eyebrow">Education · Vertical</div>
+    <h3 class="v-hero-h">Your students shouldn't have to navigate a broken billing experience. Neither should you.</h3>
+    <p class="v-hero-sub">The only platform handling all tuition — domestic, international, payment plans, and past due — in one system. Live in 30 days.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">50%</div><div class="v-stat-l">Increase in payment plans</div></div>
+      <div class="v-stat"><div class="v-stat-n">40%</div><div class="v-stat-l">Reduction in contact volume</div></div>
+      <div class="v-stat"><div class="v-stat-n">20%</div><div class="v-stat-l">Increase in past-due collections</div></div>
+      <div class="v-stat"><div class="v-stat-n">198K</div><div class="v-stat-l">Students saved from dropping out</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Website Copy · flywire.com/industries/education</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website</span><span class="ctag neutral">Page Headline</span><span class="csrc">flywire.com · Education</span></div>
+      <div class="card-hl">Your students shouldn't have to navigate a broken billing experience. Neither should you.</div>
+      <div class="card-body">
+        <p>Flywire is the only platform that handles tuition payments for every student — domestic, international, on a payment plan, or past due — in a single, secure and globally compliant system. Less manual work. More on-time payments. Live in as few as 30 days.</p>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n">50%</div><div class="kpi-l">Increase in payment plans</div></div>
+          <div class="kpi"><div class="kpi-n">40%</div><div class="kpi-l">Reduction in contact volume</div></div>
+          <div class="kpi"><div class="kpi-n">20%</div><div class="kpi-l">Increase in past-due collections</div></div>
+          <div class="kpi"><div class="kpi-n green">198K</div><div class="kpi-l">Students saved from dropping out</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-web1" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website</span><span class="ctag platform">Student Financial Software</span><span class="csrc">flywire.com · Education</span></div>
+      <div class="card-hl">One tuition management platform that covers every student — domestic and international</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Billing</div><div class="feat-d">Bills students actually understand — clear, mobile-friendly, always up to date. Personalized comms at the right time. 1098-T included.</div></div>
+          <div class="feat"><div class="feat-t">Payments</div><div class="feat-d">Accept payments from every student — domestic ACH, credit card, international wire from 240+ countries — one system. No FX surprises.</div></div>
+          <div class="feat"><div class="feat-t">Payment Plans</div><div class="feat-d">Flexible installment options that auto-rebalance as aid changes. Students enroll in seconds. Autopay reduces drop-off. 50% more students on plans.</div></div>
+          <div class="feat"><div class="feat-t">Collection Management</div><div class="feat-d">Automated pre- and past-due outreach. Empathetic comms and flexible options prevent students from disappearing over a solvable balance.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-sfs" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website</span><span class="ctag platform">Student Engagement Hub</span><span class="csrc">flywire.com · Education</span></div>
+      <div class="card-hl">Embedded student engagement that pulls real-time account information — not a standalone comms tool</div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>Feature</th><th>Flywire</th><th>Standalone Tools</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Live SIS balance in messages</td><td class="c-yes">✓ Yes — always current</td><td class="c-no">Partial — often stale</td></tr>
+            <tr><td class="c-row-lbl">International student support</td><td class="c-yes">✓ Multi-language + FX</td><td class="c-no">US only</td></tr>
+            <tr><td class="c-row-lbl">Native to Collection Management</td><td class="c-yes">✓ Native — one workflow</td><td class="c-no">Separate product, separate data</td></tr>
+            <tr><td class="c-row-lbl">Agent channel + 529 comms</td><td class="c-yes">✓ Yes</td><td class="c-no">No</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-seh" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Sales Messaging · The Flywire 5 (US Education)</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag sales">Sales</span><span class="ctag neutral">Market Position</span><span class="csrc">Flywire 5 — US Education</span></div>
+      <div class="card-hl">Built for education, by education experts. Trusted by the institutions that set the standard.</div>
+      <div class="card-body">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n green">8/8</div><div class="kpi-l">Ivy League</div></div>
+          <div class="kpi"><div class="kpi-n green">64/71</div><div class="kpi-l">AAU institutions</div></div>
+          <div class="kpi"><div class="kpi-n green">17/18</div><div class="kpi-l">Big 10 institutions</div></div>
+          <div class="kpi"><div class="kpi-n green">14/16</div><div class="kpi-l">SEC institutions</div></div>
+        </div>
+        <p>~90% of Education revenue from enterprise clients ($100K+ LTM). US SFS ARR signed grew more than 3× year over year. More than 50% of new EDU clients in 2025 came from outside Big 4 markets, with revenue from those markets growing 30%+ YoY.</p>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-market" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag sales">Sales</span><span class="ctag neutral">The Flywire 5</span><span class="csrc">Flywire 5 — US Education</span></div>
+      <div class="card-hl">Five reasons Flywire wins in higher education</div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Built for education, by education experts</strong> — built around how higher ed actually works, not how tech companies think it should</li>
+          <li><strong>The only software that truly improves collections</strong> — $380M+ past-due tuition collected; 198K+ students saved; Penn State +50% collections year one</li>
+          <li><strong>Deep &amp; rapid implementations, zero IT headaches</strong> — 40+ pre-tested integrations with Banner, Colleague, PeopleSoft, Workday, Jenzabar; live in 30 days</li>
+          <li><strong>The only system built for ALL students</strong> — domestic and international in one place; UVA +50% payment plan enrollment, −40% call volume</li>
+          <li><strong>Built-in global recruitment network</strong> — 35,000 vetted agents worldwide to drive international enrollment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-fw5" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag sales">Sales</span><span class="ctag neutral">Implementation</span><span class="csrc">flywire.com · Education</span></div>
+      <div class="card-hl">Live in 30 days. Zero IT nightmares.</div>
+      <div class="card-body">
+        <div class="steps">
+          <div class="step"><div class="step-n">1</div><div><div class="step-t">Connect your SIS</div><div class="step-d">Pre-built integrations with Banner, Colleague, PeopleSoft, Workday, Jenzabar, and 40+ more. No custom development required.</div></div></div>
+          <div class="step"><div class="step-n">2</div><div><div class="step-t">Configure your billing rules</div><div class="step-d">Your fee structures, due dates, payment plan options, and communication preferences — all configurable, no code.</div></div></div>
+          <div class="step"><div class="step-n">3</div><div><div class="step-t">Go live in 30 days</div><div class="step-d">Dedicated implementation team, tested playbook, white-glove support. Students start paying on day one.</div></div></div>
+          <div class="step"><div class="step-n">4</div><div><div class="step-t">Expand over time</div><div class="step-d">Add Collection Management, Student Engagement Hub, domestic processing — full SFS delivers ~2–3× gross profit uplift vs. cross-border only.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-impl" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Client Messaging · Personas &amp; Proof</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag client">Client Messaging</span><span class="ctag neutral">4 Personas</span><span class="csrc">Q3 2025 EDU Deck</span></div>
+      <div class="card-hl">Four people. Four different reasons Flywire changes their day.</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Students</div><div class="feat-d">Pay tuition on time with flexible options — domestic or international. No confusing portals. No wrong amounts. Just a clear balance and a way to pay it.</div></div>
+          <div class="feat"><div class="feat-t">Finance Teams</div><div class="feat-d">Automate reconciliation. Stop manually matching payments to accounts. Better assist students instead of chasing them. End the spreadsheet era.</div></div>
+          <div class="feat"><div class="feat-t">CFOs</div><div class="feat-d">Complete visibility into cash flow, collections rates, and past-due pipeline. Enrollment cliff? Flywire keeps students enrolled — and money flowing.</div></div>
+          <div class="feat"><div class="feat-t">IT Leaders</div><div class="feat-d">One technical partner. No integration nightmares. Pre-built connectors for every major SIS. The finance system that just works.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-pers" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag proof">Proof</span><span class="ctag neutral">Anglia Ruskin University</span><span class="csrc">Q3 2025 Earnings Supplement — UK SFS</span></div>
+      <div class="card-hl">Anglia Ruskin: from open portal with no account visibility to full SFS</div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>Experience</th><th>Before SFS</th><th>After SFS</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Account balance</td><td class="c-no">No visibility — students entered amounts manually</td><td class="c-yes">Real-time SIS balance, always current</td></tr>
+            <tr><td class="c-row-lbl">Authentication</td><td class="c-no">No secure authentication</td><td class="c-yes">Single sign-on through ARU student portal</td></tr>
+            <tr><td class="c-row-lbl">Payment plans</td><td class="c-no">Limited, manual process</td><td class="c-yes">Students self-enroll; auto-updated as aid changes</td></tr>
+            <tr><td class="c-row-lbl">Statements</td><td class="c-no">No printable statements</td><td class="c-yes">Full charges + payments + credits, printable PDF</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="edu-aru" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 · TRAVEL ═══════════ -->
+<section class="section" id="travel">
+  <div class="sec-num">05 · Current messaging</div>
+  <h2 class="sec-title">Travel &amp; hospitality</h2>
+  <p class="sec-lede">Sertifi contract-to-payment, multi-currency settlement, and integrations with the booking and property systems hospitality teams actually run on.</p>
+
+  <div class="v-hero travel">
+    <div class="v-hero-eyebrow">Travel &amp; Hospitality · Vertical</div>
+    <h3 class="v-hero-h">The payments platform built around how travel actually works — from contract to global settlement.</h3>
+    <p class="v-hero-sub">Sertifi contract-to-payment, multi-currency settlement, and the integrations hospitality teams actually use — in one platform.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">1,200+</div><div class="v-stat-l">Travel &amp; hospitality clients</div></div>
+      <div class="v-stat"><div class="v-stat-n">240+</div><div class="v-stat-l">Countries &amp; territories</div></div>
+      <div class="v-stat"><div class="v-stat-n">~2×</div><div class="v-stat-l">Faster collection with Sertifi</div></div>
+      <div class="v-stat"><div class="v-stat-n">&lt;1%</div><div class="v-stat-l">Annual revenue churn</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Website &amp; Positioning</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website Copy</span><span class="csrc">Travel Website · Current</span></div>
+      <div class="card-hl">The payments platform built around how travel actually works — from contract to global settlement</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Sertifi Contract &amp; Payment</div><div class="feat-d">Digital contracts and payment in one step. No more chasing signatures, then chasing payment separately. Hospitality teams close faster.</div></div>
+          <div class="feat"><div class="feat-t">Global Payments at Scale</div><div class="feat-d">Accept payments from 240+ countries in 140+ currencies. Your guests book from everywhere — your payments should work the same way.</div></div>
+          <div class="feat"><div class="feat-t">Booking System Integration</div><div class="feat-d">Native integrations with Opera, Infor, Salesforce, and the other systems hospitality teams already run on. No rip and replace.</div></div>
+          <div class="feat"><div class="feat-t">Unified Reporting</div><div class="feat-d">One dashboard. Every payment, every currency, every property. Finance teams close the month faster — and with fewer errors.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="tr-web" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag neutral">Market Data</span><span class="csrc">Q4 2024 Travel Deck</span></div>
+      <div class="card-hl">Your guests book from 80 countries. Your contracts need a signature. Your settlement needs to hit 12 currencies. Flywire handles all of it.</div>
+      <div class="card-body">
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n">240+</div><div class="kpi-l">Countries &amp; territories</div></div>
+          <div class="kpi"><div class="kpi-n">1,200+</div><div class="kpi-l">Travel &amp; hospitality clients</div></div>
+          <div class="kpi"><div class="kpi-n dark">~2×</div><div class="kpi-l">Faster payment collection with Sertifi</div></div>
+          <div class="kpi"><div class="kpi-n green">&lt;1%</div><div class="kpi-l">Annual churn</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="tr-market" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Product &amp; Platform</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag platform">Product</span><span class="csrc">Sertifi Integration Deck</span></div>
+      <div class="card-hl">Sertifi: the contract-to-payment workflow that hospitality teams actually use every day</div>
+      <div class="card-body">
+        <p>Sertifi isn't a bolt-on. It's the part of the platform that turns a signed contract directly into a payment — eliminating the gap where deals stall, fall through, or require manual follow-up.</p>
+        <div class="pill-row">
+          <span class="pill b">eSignature + payment in one step</span>
+          <span class="pill b">Group &amp; event billing</span>
+          <span class="pill b">PCI-compliant card capture</span>
+          <span class="pill b">Automated payment links</span>
+          <span class="pill b">Opera &amp; Infor native</span>
+          <span class="pill b">Mobile-ready for guests</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="tr-sertifi" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Proof &amp; Momentum</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag proof">Case Study</span><span class="csrc">Q4 2024 Wins</span></div>
+      <div class="card-hl">Villa Finder: international property rentals at scale — plus Q4 momentum</div>
+      <div class="card-body">
+        <div class="quote">
+          <div class="quote-text">"Flywire gave us the infrastructure to handle payments from 80+ countries without building a treasury team. It just works."</div>
+          <div class="quote-attr">— Villa Finder Finance Lead</div>
+        </div>
+        <p style="margin:12px 0 8px;font-size:12px;font-weight:700;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em">Q4 2024 New Wins</p>
+        <div class="pill-row">
+          <span class="pill p">InterContinental Hotels Group</span>
+          <span class="pill p">Marriott franchise group (APAC)</span>
+          <span class="pill p">Preferred Hotels &amp; Resorts</span>
+          <span class="pill p">3 top-10 DMCs (Europe)</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="tr-villa" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag neutral">Enterprise Momentum</span><span class="csrc">2021–2025</span></div>
+      <div class="card-hl">Travel: from regional niche to global enterprise payments infrastructure</div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>Metric</th><th>2021</th><th>2023</th><th>2025</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Travel clients</td><td>~400</td><td>~800</td><td class="c-hi">1,200+</td></tr>
+            <tr><td class="c-row-lbl">Countries supported</td><td>120</td><td>180</td><td class="c-hi">240+</td></tr>
+            <tr><td class="c-row-lbl">Sertifi adoption</td><td>New</td><td>~200 clients</td><td class="c-hi">500+ clients</td></tr>
+            <tr><td class="c-row-lbl">Average deal profile</td><td>Mid-market</td><td>Mixed</td><td class="c-hi">Enterprise-led</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="tr-mom" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 · B2B ═══════════ -->
+<section class="section" id="b2b">
+  <div class="sec-num">06 · Current messaging</div>
+  <h2 class="sec-title">B2B payments</h2>
+  <p class="sec-lede">Invoiced software plus Flywire global payments — eliminating the DSO problem from first invoice to final settlement. New logos are taking the full bundle from day one.</p>
+
+  <div class="v-hero b2b">
+    <div class="v-hero-eyebrow">B2B Payments · Vertical</div>
+    <h3 class="v-hero-h">The complete invoice-to-cash platform. AR automation software + global payments. One system.</h3>
+    <p class="v-hero-sub">Invoiced software plus Flywire global payments — eliminating the DSO problem from first invoice to final settlement.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">30%+</div><div class="v-stat-l">DSO reduction (avg client)</div></div>
+      <div class="v-stat"><div class="v-stat-n">2.3×</div><div class="v-stat-l">Higher ACV vs. payments-only</div></div>
+      <div class="v-stat"><div class="v-stat-n">68%</div><div class="v-stat-l">New logos take full platform</div></div>
+      <div class="v-stat"><div class="v-stat-n">&lt;0.8%</div><div class="v-stat-l">Churn, full platform clients</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Website &amp; Positioning</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website Copy</span><span class="csrc">B2B Website · Current</span></div>
+      <div class="card-hl">The complete invoice-to-cash platform. AR automation software + global payments. One system.</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Invoiced AR Automation</div><div class="feat-d">Automated billing, collections, and cash application. Finance teams stop chasing invoices and start closing the books faster.</div></div>
+          <div class="feat"><div class="feat-t">Global Payments Built In</div><div class="feat-d">140+ currencies, 240+ countries — natively connected to the AR workflow. No separate gateway. No reconciliation nightmare.</div></div>
+          <div class="feat"><div class="feat-t">ERP-Native Integration</div><div class="feat-d">NetSuite, Sage, Dynamics, QuickBooks — Invoiced syncs with the ERPs B2B finance teams already run. Implementation in weeks, not quarters.</div></div>
+          <div class="feat"><div class="feat-t">AI-Powered (Coming Soon)</div><div class="feat-d">Intelligent collections prioritization and cash flow forecasting — built on the payment and AR data Flywire already manages for you.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-web" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag platform">Value Story</span><span class="csrc">B2B DSO Data</span></div>
+      <div class="card-hl">DSO dropped. Cash flow improved. The AR team finally stopped living in their inbox.</div>
+      <div class="card-body">
+        <div class="quote">
+          <div class="quote-text">"We cut DSO by 30% in the first quarter. But the bigger win was that our AR team went from firefighting to actually running a process."</div>
+          <div class="quote-attr">— COO, Mid-market SaaS company</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill b">30%+ DSO reduction (avg)</span>
+          <span class="pill b">Automated dunning sequences</span>
+          <span class="pill b">Self-service customer portal</span>
+          <span class="pill b">Real-time cash application</span>
+          <span class="pill b">Multi-entity support</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-value" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Platform &amp; Market</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag neutral">Platform Adoption</span><span class="csrc">B2B Sales Data 2025</span></div>
+      <div class="card-hl">New clients now take software AND payments from day one — the bundle is the default</div>
+      <div class="card-body">
+        <p>The old model: sell payments first, upsell software later. The new model: the full platform wins the deal. New B2B logos acquired in 2024–25 are taking the combined Invoiced + Payments offering at signing — driving higher ACVs and deeper retention from day one.</p>
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-n">68%</div><div class="kpi-l">New B2B logos take full platform</div></div>
+          <div class="kpi"><div class="kpi-n dark">2.3×</div><div class="kpi-l">Higher ACV vs. payments-only</div></div>
+          <div class="kpi"><div class="kpi-n green">&lt;0.8%</div><div class="kpi-l">Annual churn, full platform</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-adopt" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag client">Buyer Personas</span><span class="csrc">B2B GTM Deck</span></div>
+      <div class="card-hl">Three buyers. Three different conversations. One platform that closes all of them.</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">The CFO</div><div class="feat-d">Lead with DSO, cash flow predictability, and audit readiness. "30% DSO reduction in Q1." They're buying financial control — not software features.</div></div>
+          <div class="feat"><div class="feat-t">The AR Manager</div><div class="feat-d">Lead with time saved on manual work — dunning, reconciliation, collections calls. "Automated collections that run without you." They're buying relief from their inbox.</div></div>
+          <div class="feat"><div class="feat-t">IT / Finance Ops</div><div class="feat-d">Lead with ERP integration, implementation timeline, and security certifications. They want to know it won't break what already works.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-pers" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Proof Points</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag proof">Before / After</span><span class="csrc">Customer Success Data</span></div>
+      <div class="card-hl">What AR operations look like before Flywire — and 90 days after</div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>AR Operation</th><th>Before</th><th>After Flywire</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Invoice delivery</td><td class="c-no">Manual email batches, 3–5 day lag</td><td class="c-yes">Automated, same-day delivery</td></tr>
+            <tr><td class="c-row-lbl">Collections follow-up</td><td class="c-no">AR team manually chasing each account</td><td class="c-yes">Automated dunning sequences</td></tr>
+            <tr><td class="c-row-lbl">Cash application</td><td class="c-no">Manual matching, 2–3 FTE dedicated</td><td class="c-yes">Auto-matched on receipt</td></tr>
+            <tr><td class="c-row-lbl">International payments</td><td class="c-no">Wire transfers, FX risk, manual reconciliation</td><td class="c-yes">140+ currencies, auto-reconciled</td></tr>
+            <tr><td class="c-row-lbl">Customer experience</td><td class="c-no">PDF invoices, check or wire only</td><td class="c-yes">Self-service portal, all payment methods</td></tr>
+            <tr><td class="c-row-lbl">DSO</td><td class="c-no">Industry average: 45–60 days</td><td class="c-yes">Post-Flywire avg: 28–35 days</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-bf" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag platform">Product Feature</span><span class="csrc">Invoiced Platform</span></div>
+      <div class="card-hl">Customer self-service portal — your buyers pay faster when they can do it on their terms</div>
+      <div class="card-body">
+        <p>The Invoiced customer portal gives B2B buyers a single place to view invoices, dispute line items, set up payment plans, and pay in their preferred currency — without calling your AR team. Adoption averages 73% within 60 days of go-live.</p>
+        <div class="pill-row">
+          <span class="pill b">Invoice history &amp; download</span><span class="pill b">Multi-currency payment</span><span class="pill b">Dispute management</span>
+          <span class="pill b">Installment / payment plans</span><span class="pill b">ACH, card, wire, local methods</span><span class="pill b">White-label branding</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="b2b-portal" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 · HEALTHCARE ═══════════ -->
+<section class="section" id="healthcare">
+  <div class="sec-num">07 · Current messaging</div>
+  <h2 class="sec-title">Healthcare</h2>
+  <p class="sec-lede">The integrated patient financial experience that improves hospital yield without sacrificing patient trust. Epic is the strategy, not the obstacle.</p>
+
+  <div class="v-hero hc">
+    <div class="v-hero-eyebrow">Healthcare · Vertical</div>
+    <h3 class="v-hero-h">The integrated patient financial experience that improves hospital yield — without sacrificing patient trust.</h3>
+    <p class="v-hero-sub">Affordability Suite, billing automation, EHR-native integration, and the international patient payments infrastructure health systems actually need.</p>
+    <div class="v-hero-stats">
+      <div class="v-stat"><div class="v-stat-n">12–18%</div><div class="v-stat-l">More patient AR recovered (avg)</div></div>
+      <div class="v-stat"><div class="v-stat-n">Epic</div><div class="v-stat-l">Certified native integration</div></div>
+      <div class="v-stat"><div class="v-stat-n">130+</div><div class="v-stat-l">Settlement currencies</div></div>
+      <div class="v-stat"><div class="v-stat-n">Top 10</div><div class="v-stat-l">US health systems as clients</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Website &amp; Positioning</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag web">Website Copy</span><span class="csrc">Healthcare Website · Current</span></div>
+      <div class="card-hl">The integrated patient financial experience that improves hospital yield without sacrificing patient trust</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Affordability Suite</div><div class="feat-d">Financial counseling, payment plans, and charity care screening — embedded in the patient flow so hospitals improve collection rates without the collections experience.</div></div>
+          <div class="feat"><div class="feat-t">Billing Automation</div><div class="feat-d">Automated patient billing across pre-service, point-of-service, and post-discharge — reducing staff burden and bad debt before it starts.</div></div>
+          <div class="feat"><div class="feat-t">EHR-Native Integration</div><div class="feat-d">Epic and Cerner certified. No parallel workflows. Patient financial data lives where the clinical team already works.</div></div>
+          <div class="feat"><div class="feat-t">International Patient Payments</div><div class="feat-d">The only platform purpose-built for international patient financial clearance — from insurance verification to settlement in 130+ currencies.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="hc-web" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag client">CFO Messaging</span><span class="csrc">HC Executive Deck</span></div>
+      <div class="card-hl">Hospital CFOs have one word for this problem: yield. Here's how Flywire moves the number.</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Yield on Patient AR</div><div class="feat-d">Flywire clients recover 12–18% more on patient AR by moving charity care screening, payment plans, and digital billing upstream — before bad debt ever hits.</div></div>
+          <div class="feat"><div class="feat-t">Reduce Vendor Count</div><div class="feat-d">Replace 3–5 point solutions (payment gateway, patient portal, financial counseling tool, international payments) with one integrated platform. One contract. One support team.</div></div>
+          <div class="feat"><div class="feat-t">Audit-Ready Compliance</div><div class="feat-d">PCI DSS Level 1, HIPAA-compliant, SOC 2 Type II. Patient financial data handled with the same standards as clinical data.</div></div>
+          <div class="feat"><div class="feat-t">International Revenue Capture</div><div class="feat-d">Top health systems generate $40M–$200M+ annually from international patients. Flywire is the only platform that makes this revenue predictable and operationally manageable.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="hc-cfo" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Platform &amp; Strategy</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag platform">Epic Strategy</span><span class="csrc">HC Platform Deck 2025</span></div>
+      <div class="card-hl">Epic isn't the obstacle — it's the strategy. Flywire is certified where it counts.</div>
+      <div class="card-body">
+        <div class="quote">
+          <div class="quote-text">"When we found out Flywire was Epic-certified and could handle our international population, we stopped evaluating other vendors. That was the decision."</div>
+          <div class="quote-attr">— COO, Academic Medical Center</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill b">Pre-service financial screening</span><span class="pill b">Point-of-service payment</span>
+          <span class="pill b">Post-discharge billing</span><span class="pill b">Epic &amp; Cerner native certified</span>
+          <span class="pill b">Charity care automation</span><span class="pill b">International clearance</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="hc-epic" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Proof &amp; Market Context</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag proof">Case Study</span><span class="csrc">Q4 2024 HC Wins</span></div>
+      <div class="card-hl">Cleveland Clinic: phased rollout from international to full patient financial experience</div>
+      <div class="card-body">
+        <div class="quote">
+          <div class="quote-text">"We started with international patients — that's where the complexity was. Two years later, Flywire is how we run patient financial services."</div>
+          <div class="quote-attr">— CFO, Cleveland Clinic</div>
+        </div>
+        <p style="margin:14px 0 8px;font-size:12px;font-weight:700;color:var(--text-4);text-transform:uppercase;letter-spacing:.07em">Q4 2024 New Health System Wins</p>
+        <div class="pill-row">
+          <span class="pill p">Johns Hopkins Health System</span><span class="pill p">Cedars-Sinai (international expansion)</span>
+          <span class="pill p">Mayo Clinic (Affordability Suite)</span><span class="pill p">4 regional health systems (Epic)</span>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="hc-cc" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag neutral">Advisory Board</span><span class="csrc">HC Market Context 2025</span></div>
+      <div class="card-hl">What the health system advisory board is telling us — the market is consolidating and we're positioned at the center of it</div>
+      <div class="card-body">
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Vendor Consolidation Wave</div><div class="feat-d">Health system CFOs are actively reducing vendor count. The average hospital runs 7+ financial point solutions. The winner will be the platform that replaces 3–5 of them in one contract.</div></div>
+          <div class="feat"><div class="feat-t">Epic as the Filter</div><div class="feat-d">If you're not Epic-certified, you're not in the conversation at academic medical centers. This certification is a market filter that removes 80% of competitors from consideration.</div></div>
+          <div class="feat"><div class="feat-t">Patient Experience = Financial Metric</div><div class="feat-d">Patient financial experience scores are now tied to reimbursement rates under value-based care models. "Better patient experience" is worth money.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="hc-adv" placeholder="Feedback or questions…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 · FEEDBACK COLLECTED ═══════════ -->
+<section class="section" id="feedback">
+  <div class="sec-num">08 · Inputs</div>
+  <h2 class="sec-title">Feedback collected</h2>
+  <p class="sec-lede">A consolidated view of what we've heard about our current messaging — from the site experience and content audit, internal stakeholder feedback, and Phillip R's April 9 stakeholder review.</p>
+
+  <div class="sub-label">Site experience &amp; content · Internal audit (April 2026)</div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">Headline is too descriptive — it describes a category, it doesn't make a claim</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>"The global payments and software experts" describes a category. It does not make a claim. Any visitor who does not already know Flywire walks away with nothing memorable. The strongest commercial story we have never makes it to the hero.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">Leading with technology architecture, not client outcomes</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>"Next-gen platform, proprietary network, vertical-specific software" is architecture language. Buyers want to know what changes for their business, not how the engine is assembled. We describe ourselves when we should describe the world after Flywire arrives.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">The EDU gravity problem</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>A hospital CFO, a hospitality finance director, and a global B2B controller all land on the same page and have to work to find themselves. The visual and copy lean heavily toward education — our strongest vertical today, but a barrier for the other three.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">"Complex" as a selling point</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Buyers do not want complexity. They want it gone. Celebrating complexity as a badge puts the translation burden on the reader rather than doing the work for them. The category win is turning complexity into control — not naming it.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel ok">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Opportunity</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">The real story lives in the investor materials, not the homepage</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Flywire is embedded infrastructure, not a standalone payment tool. That positioning exists in the investor materials but never makes it to the homepage where it would do the most work.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel ok">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Opportunity</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">Integration names are buried</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Ellucian, Epic, Workday, Oracle, Amadeus, NetSuite. These are the most powerful credibility signals on the page. They prove depth and switching cost without a single claim needing to be made. They are nowhere near the hero.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel good">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge strength">Strength</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">What works: the four-vertical structure</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Education, Travel, B2B, Healthcare as a navigation architecture is correct. It signals focus and depth. Keep it. Sharpen what sits inside each card.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel good">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge strength">Strength</span><span class="fb-src">Homepage audit</span></div>
+      <div class="fb-h">What works: the scale story</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>$37.6B moved, 240 countries, 140+ currencies, 5,000 clients. These numbers are real and they are large. They belong on the page early, framed as proof of embeddedness — not as investor metrics.</p>
+    </div>
+  </div>
+
+  <div class="sub-label">Internal feedback · Commercial team</div>
+
+  <div class="fb-panel">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Placeholder</span><span class="fb-src">To be added ahead of workshop</span></div>
+      <div class="fb-h">Internal feedback from GTM leadership, sales, and PMM to be consolidated here</div>
+    </div>
+    <div class="fb-panel-body">
+      <p style="color:var(--text-3);font-style:italic">This section will capture internal feedback collected from the commercial leadership team, sales enablement, vertical PMM leads, and customer-facing teams. Add input in the notes below or share directly for inclusion before the workshop.</p>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your internal feedback</span><textarea class="fb-ta" data-k="fb-internal" placeholder="Add your internal feedback here — what you're hearing from sales, CS, PMM, clients…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Phillip R · Stakeholder review</div>
+
+  <div class="phillip-banner">
+    <div class="phillip-avatar">PR</div>
+    <div class="phillip-text">
+      <div class="phillip-lbl">Stakeholder Review</div>
+      <div class="phillip-h">Phillip R raised four additional gaps in his April 9 review — they sit on top of the existing teardown and are the sharpest framing of the work ahead</div>
+      <div class="phillip-date">April 9, 2026</div>
+    </div>
+  </div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Phillip R · April 9, 2026</span></div>
+      <div class="fb-h">The big rock is invisible</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>The strongest commercial story Flywire has — near-zero client churn, expanding gross profit per customer, increasing wallet share over time — lives entirely in earnings calls. Investors hear it. Buyers never do. That gap is costing new business and underselling existing relationships.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel bad">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge gap">Gap</span><span class="fb-src">Phillip R · April 9, 2026</span></div>
+      <div class="fb-h">We talk about ourselves, not our clients</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>"Global payments + software" describes what Flywire is. It says nothing about what changes for the client. Buyers don't care what you are — they care what they get. Every headline should answer one question: what does the client's world look like after they choose Flywire?</p>
+    </div>
+  </div>
+
+  <div class="fb-panel ok">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Opportunity</span><span class="fb-src">Phillip R · April 9, 2026</span></div>
+      <div class="fb-h">The missing structure: three buckets</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Messaging needs to move through three stages in order: <strong>(1) the client's dream situation</strong> — "every student pays in their method of choice from any country in the world"; <strong>(2) how Flywire makes that happen</strong>; <strong>(3) why Flywire is better than everyone else</strong>. The site currently skips bucket one entirely and leads with bucket three.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel ok">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Opportunity</span><span class="fb-src">Phillip R · April 9, 2026</span></div>
+      <div class="fb-h">Speed to value is an untapped hook</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>Within 30 days of going live, a Flywire client has measurable outcomes: seamless on-time payments from every market, fewer inbound inquiries, 100% of students with a payment plan who need one, error-free invoicing. That is a concrete, credible promise. It appears nowhere on the current site.</p>
+    </div>
+  </div>
+
+  <div class="fb-panel">
+    <div class="fb-panel-head">
+      <div class="fb-panel-meta"><span class="fb-badge ok">Brief</span><span class="fb-src">The frame this homepage should have been written from</span></div>
+      <div class="fb-h">"An end-to-end, embedded receivables platform. Not a standalone payment solution. Not a point software tool."</div>
+    </div>
+    <div class="fb-panel-body">
+      <p>"The structural position: embedded in mission-critical financial workflows where data, compliance, workflow, and transaction execution intersect."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 · DIRECTION & CONCEPTS ═══════════ -->
+<section class="section" id="direction">
+  <div class="sec-num">09 · Where this could go</div>
+  <h2 class="sec-title">Direction &amp; concepts</h2>
+  <p class="sec-lede">Concept directions for the corporate narrative, how each vertical translates from that corporate frame, and how the IR story carries forward. These are <strong>starting points for discussion</strong> — not decided direction.</p>
+
+  <div class="sub-label">Corporate direction · Pinned recommendation</div>
+
+  <div class="concept-card pinned">
+    <div class="concept-hero">
+      <div class="concept-meta">
+        <span class="concept-num">Direction v3</span>
+        <span class="concept-badge pinned">★ Pinned</span>
+      </div>
+      <div class="concept-hl">The hardest payments problems are the ones <em>we're built for.</em></div>
+      <p class="concept-sub">Purpose built for education, healthcare, travel, and B2B. Embedded in the mission-critical workflows each industry runs on. <strong>Not a connection to your stack. A presence inside it.</strong></p>
+    </div>
+    <div class="concept-body">
+      <div class="concept-mandate">
+        Complexity into control. Faster payments. Higher conversion and collections. Less operational burden. A better end-to-end experience for every client you serve.
+      </div>
+      <div class="concept-verticals">
+        <span class="cv">Education</span><span class="cv">Travel &amp; hospitality</span><span class="cv">B2B</span><span class="cv">Healthcare</span>
+      </div>
+      <div class="concept-rat">
+        <strong>Why this works:</strong> "Built for it" closes the hero as a category claim. The three-pillar section converts infrastructure into evidence. "Not a connection to your stack. A presence inside it" is the sharpest framing of the embedded moat. The stats bar creates gravitas before verticals. This is the full messaging direction — not a headline swap.
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-v3" placeholder="Reactions to this direction…"></textarea></div>
+  </div>
+
+  <div class="sub-label">Additional corporate hero options</div>
+
+  <div class="option-grid">
+
+    <div class="concept-card pinned">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 2 — Speed to value</span><span class="concept-badge pinned">★ Recommended</span></div>
+        <div class="concept-hl">Within 30 days, your team stops answering payment questions. Every student who needs a plan has one. <em>Every invoice goes out without error.</em></div>
+        <p class="concept-sub">Not eventually. In the first month. You get seamless on-time payments from every market, automatic reconciliation across every currency, and fewer inbound calls to your office — because the platform runs inside your existing systems, not on top of them.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">That's not a promise. It's what our clients experience. And it's why they stay — and expand — year after year.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> "Within 30 days" is the most specific value promise on any payments homepage — no competitor will say it. Answers the buyer's real question: what do I get, and when? Sharpest hook in the set. "Your team stops being the fix" names the real pain without describing Flywire at all.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt2" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card pinned">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 6 — Category claim</span><span class="concept-badge pinned">★ Recommended</span></div>
+        <div class="concept-hl">Not all payments are created equal. <em>Some of them matter more than anything else you do today.</em></div>
+        <p class="concept-sub">Some payments are high value. Cross-border. Time-sensitive. Operationally complex. And when they fail — revenue is delayed or lost, operations break down, and the customer experience suffers in ways that are hard to recover from.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">We turn complexity into control. Faster payments. Higher conversion and collections. Less operational burden. A better end-to-end experience for every client you serve.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> "Not all payments are created equal" is a category wedge that qualifies the reader and separates Flywire from general-purpose processors. The four vertical stakes make the consequence of failure tangible before a single feature is mentioned. "Complexity into control" works as brand line, sales line, and homepage headline.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt6" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 1 — Client outcome</span><span class="concept-badge">Client-first</span></div>
+        <div class="concept-hl">Your students, patients, and travelers pay in their own currency, from anywhere in the world — and it lands <em>on time, in full, without a single call to your office.</em></div>
+        <p class="concept-sub">No more chasing exceptions. No more manual reconciliation. No more gaps between what one system shows and what actually arrived.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">The clients who work with us don't leave. They give us more of their business every year. Because when payments stop being a problem, everything else gets easier.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Every word is about what the client gains or loses. Flywire is never named in the hero or sub — the platform earns its mention through proof, not claim. Strongest for buyers living the exception-chasing pain right now.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt1" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 3 — Scenario-led</span><span class="concept-badge">Scenario</span></div>
+        <div class="concept-hl">A student in Shanghai. A patient in Dubai. A hotel collecting deposits from 40 countries. Every payment lands <em>on time. No one calls your office.</em></div>
+        <p class="concept-sub">That's not aspirational. That's what you should expect from every payment, in every market, across every currency your business touches.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">Other platforms call these edge cases. You know they're not. They're your entire business — and they deserve a platform built for them.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> The buyer sees their exact reality in sentence one. "That's not aspirational" reframes the expectation from wish to standard. Most immediate buyer recognition of any option in the set.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt3" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 4 — Operations buyer</span><span class="concept-badge">Operations</span></div>
+        <div class="concept-hl">Your finance team stops chasing payment exceptions. Reconciliation happens on its own. You get <em>one view across every market, every currency, every workflow.</em></div>
+        <p class="concept-sub">Right now, your team is the bridge between systems that don't talk to each other. That stops when payments are embedded inside your existing workflows — inside your ERP, your SIS, your financial systems — instead of sitting on top of them.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">The clients who move to this model don't go back. They give us more of their business every year — because when your team stops fighting payments, they start doing the work that actually matters.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Names the exact daily pain — being the manual bridge between broken systems — without describing technology. The buyer feels seen before Flywire is ever mentioned. Best for VP Finance, Controller, Director of Student Accounts.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt4" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero">
+        <div class="concept-meta"><span class="concept-num">Option 5 — Industry fit</span><span class="concept-badge">Industry</span></div>
+        <div class="concept-hl">Imagine a payments partner that already knows your compliance requirements, your billing cycles, your payment flows — <em>before you have to explain them.</em></div>
+        <p class="concept-sub">That's not a sales promise. That's what you get when your payments platform was built specifically for your industry — not adapted from somewhere else.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">That's why your gross profit per client grows every year when you work with us. When the fit is this precise, you stop looking for alternatives — and start giving us more of your business.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Travel</span><span class="cv">B2B</span><span class="cv">Healthcare</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Opens with the client's fantasy — the vendor who gets it without needing to be taught. The GPP close lands as validation, not a boast. Strongest for senior buyers burned by horizontal platforms promising "flexibility."</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt5" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero" style="background:linear-gradient(135deg,#991B1B,#B91C1C)">
+        <div class="concept-meta"><span class="concept-num">Option 7 — Emotional urgency</span><span class="concept-badge">Urgency</span></div>
+        <div class="concept-hl">Right now, someone at your organization is losing money that <em>didn't have to walk out the door.</em></div>
+        <p class="concept-sub">A student unenrolling over a payment no one caught. An invoice sitting unpaid for 90 days. A patient bill written off because there was no easy way to collect it. A luxury guest who booked somewhere else because the payment process felt like a problem.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">Flywire stops the leak — and makes the people who stopped it look like heroes. Our clients keep more of the money they've already earned. And they don't need a team of people to do it.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Healthcare</span><span class="cv">Travel</span><span class="cv">B2B</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Opens with the specific consequence in each vertical — not the category problem, the actual money leaving. The buyer feels implicated before Flywire is ever named. "Hero" framing closes the emotional loop — relief plus reward. Most visceral of the options.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt7" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero" style="background:linear-gradient(135deg,var(--fw-dark-green),#0F6E56)">
+        <div class="concept-meta"><span class="concept-num">Option 8 — After state</span><span class="concept-badge">After state</span></div>
+        <div class="concept-hl">Imagine every student on a plan. Every invoice tracked. Every guest payment <em>frictionless.</em></div>
+        <p class="concept-sub">Not a system to manage — a system that manages itself. Payments come in on time, in the right currency, reconciled to the penny, inside the tools your team already uses. Your people stop being the bridge between broken systems and start doing the work that actually matters.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">We work the way you work — inside your ERP, your SIS, your billing workflows — not on top of them. That's why our clients don't leave.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Healthcare</span><span class="cv">Travel</span><span class="cv">B2B</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Leads with the dream state before naming a single feature. Brings the embedded infrastructure story in naturally as the reason — not as the lead. Unusually human for a fintech brand. Works across all four verticals without modification.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt8" placeholder="Reactions…"></textarea></div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-hero" style="background:linear-gradient(135deg,#92400E,#B45309)">
+        <div class="concept-meta"><span class="concept-num">Option 9 — Competitive wedge</span><span class="concept-badge">Competitive</span></div>
+        <div class="concept-hl">Every other payments platform was built for someone else's business. <em>This one was built for yours.</em></div>
+        <p class="concept-sub">Education, healthcare, travel, B2B. Each vertical has its own billing cycles, compliance demands, payment corridors, and workflows. Generic platforms offer flexibility. Flywire offers fit — software and payments designed around the way your industry actually operates.</p>
+      </div>
+      <div class="concept-body">
+        <div class="concept-mandate">When the platform already understands your business, you stop explaining it — and start seeing results. The difference shows up fast. Usually within 30 days of going live.</div>
+        <div class="concept-verticals"><span class="cv">Education</span><span class="cv">Healthcare</span><span class="cv">Travel</span><span class="cv">B2B</span></div>
+        <div class="concept-rat"><strong>Why this works:</strong> Opens with the implicit frustration every buyer has had with a horizontal platform. "Fit" vs "flexibility" is a powerful reframe of the competitive dynamic. The 30-day close is the most specific proof point across all options.</div>
+      </div>
+      <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-opt9" placeholder="Reactions…"></textarea></div>
+    </div>
+
+  </div>
+
+  <div class="sub-label">Vertical translations · How corporate direction carries into each vertical</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag neutral">Translation Framework</span><span class="csrc">Direction applied</span></div>
+      <div class="card-hl">One corporate frame. Four vertical expressions. The same promise, in each industry's language.</div>
+      <div class="card-body">
+        <p>If we land on a corporate direction like "the hardest payments problems are the ones we're built for," each vertical page inherits that frame and translates it to the language of its buyer. The corporate promise becomes the vertical proof.</p>
+        <table class="tbl">
+          <thead><tr><th>Vertical</th><th>Vertical headline translation</th><th>Speed-to-value proof</th></tr></thead>
+          <tbody>
+            <tr><td class="c-row-lbl">Education</td><td>Your students shouldn't have to navigate a broken billing experience. Neither should you.</td><td class="c-yes">Live in 30 days. +50% on plans, −40% call volume</td></tr>
+            <tr><td class="c-row-lbl">Travel</td><td>The payments platform built around how travel actually works — contract to settlement.</td><td class="c-yes">~2× faster collection with Sertifi</td></tr>
+            <tr><td class="c-row-lbl">B2B</td><td>The complete invoice-to-cash platform. AR automation + global payments. One system.</td><td class="c-yes">30%+ DSO reduction in first quarter</td></tr>
+            <tr><td class="c-row-lbl">Healthcare</td><td>Patient financial experience that improves hospital yield without sacrificing trust.</td><td class="c-yes">12–18% more patient AR recovered</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-vertical" placeholder="Reactions on the vertical translation…"></textarea></div>
+  </div>
+
+  <div class="sub-label">IR story · How corporate direction translates to the board/investor narrative</div>
+
+  <div class="card">
+    <div class="card-main">
+      <div class="card-tags"><span class="ctag ir">IR</span><span class="csrc">Narrative alignment</span></div>
+      <div class="card-hl">The commercial story and the IR story should be the same story — told in different languages</div>
+      <div class="card-body">
+        <p>Today, the IR narrative ("embedded receivables platform · land and expand · operating leverage") is sharper than the commercial narrative. The opportunity in this workshop is to bring commercial messaging up to match, so both tell the same story with different vocabulary.</p>
+        <div class="feat-grid">
+          <div class="feat"><div class="feat-t">Commercial language</div><div class="feat-d">"The hardest payments problems are the ones we're built for." Speed to value in 30 days. Your team stops being the bridge.</div></div>
+          <div class="feat"><div class="feat-t">IR language</div><div class="feat-d">"An end-to-end, embedded receivables platform." Sub-1% churn. 2–3× GPP expansion. 35%+ pipeline growth. Compounding operating leverage.</div></div>
+          <div class="feat"><div class="feat-t">Shared proof</div><div class="feat-d">4,900+ enterprise clients. 8/8 Ivies. 64/71 AAU. Top-10 US health systems. 100+ certified integrations. $623M revenue, $13.5M GAAP net income.</div></div>
+          <div class="feat"><div class="feat-t">Shared moat</div><div class="feat-d">Vertical software + integration depth + domain expertise + compliance posture. No entrant can replicate all four at once.</div></div>
+        </div>
+        <p style="margin-top:14px"><strong>The alignment move:</strong> Give the IR moat language a home on the commercial site, framed as client benefit. Give the commercial speed-to-value promise a home in the IR narrative, framed as a leading indicator of land-and-expand velocity. Same story. Same proof. Different audiences.</p>
+      </div>
+    </div>
+    <div class="fb-bar"><span class="fb-lbl">Your notes</span><textarea class="fb-ta" data-k="dir-ir" placeholder="Reactions on the IR alignment…"></textarea></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 · WORKSHOP INPUT ═══════════ -->
+<section class="section" id="workshop-input">
+  <div class="sec-num">10 · Pre-workshop</div>
+  <h2 class="sec-title">Your input</h2>
+  <p class="sec-lede">Your reactions ahead of the workshop. Card-level notes throughout the document are captured automatically. Use the questions below for the bigger-picture reactions we'll discuss live.</p>
+
+  <div class="workshop-intro">
+    <div style="font-size:11px;font-weight:700;color:var(--fw-blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Before the workshop</div>
+    <div style="font-size:15px;font-weight:700;color:var(--fw-dark-blue);margin-bottom:8px">Please share your thoughts on the questions below.</div>
+    <div style="font-size:13px;color:var(--text-2);line-height:1.65">There are no wrong answers. This is an artifact to shape our conversation — the more direction you bring in writing, the sharper the workshop will be. Click <strong>Export notes</strong> in the sidebar when you're done to save everything.</div>
+  </div>
+
+  <div class="workshop-form">
+    <div class="ws-field">
+      <label class="ws-label">Your name</label>
+      <input type="text" class="ws-input" data-k="ws-name" placeholder="So we know whose input this is">
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q1 · What is the single strongest message we have today — and where should it live?</label>
+      <div class="ws-sub">Which piece of current messaging from Sections 02–07 most clearly expresses who Flywire is and what clients get? Where should it show up that it doesn't today?</div>
+      <textarea class="ws-ta" data-k="ws-q1" placeholder="The strongest message is…"></textarea>
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q2 · Where is the biggest gap between what we say and what clients / investors should hear?</label>
+      <div class="ws-sub">Based on the feedback in Section 08 and your own view, where is the widest gap between today's messaging and what the audience needs to hear?</div>
+      <textarea class="ws-ta" data-k="ws-q2" placeholder="The biggest gap is…"></textarea>
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q3 · Which corporate direction resonates most — and why?</label>
+      <div class="ws-sub">From the options in Section 09 (Direction v3, Options 1–9), which one (or combination) feels closest to right for Flywire? What's missing?</div>
+      <textarea class="ws-ta" data-k="ws-q3" placeholder="The direction I'd push toward is…"></textarea>
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q4 · How should the IR story evolve to match the commercial narrative?</label>
+      <div class="ws-sub">If we sharpen the commercial message, what changes in how we talk to investors and the board? What should stay the same?</div>
+      <textarea class="ws-ta" data-k="ws-q4" placeholder="The IR narrative should…"></textarea>
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q5 · What is missing from this document that we should be talking about?</label>
+      <div class="ws-sub">Anything we haven't captured: a vertical, a proof point, a stakeholder view, a constraint. What else belongs in this conversation?</div>
+      <textarea class="ws-ta" data-k="ws-q5" placeholder="We should also discuss…"></textarea>
+    </div>
+
+    <div class="ws-field">
+      <label class="ws-label">Q6 · What does success look like for this workshop?</label>
+      <div class="ws-sub">How will we know we had the right conversation? What should we walk out with?</div>
+      <textarea class="ws-ta" data-k="ws-q6" placeholder="We'll know we succeeded when…"></textarea>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="page-foot">
+  <div class="page-foot-mark">Flywire · Brand &amp; Messaging Review · April 2026 · Workshop Artifact</div>
+</footer>
+
+<script>
+/* ══════════ Notes persistence (localStorage) ══════════ */
+const STORAGE_KEY = 'flywire-brand-review-v2-notes';
+
+function loadNotes(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){return {}}
+}
+function saveNotes(obj){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(obj))}catch(e){}
+}
+
+const notes = loadNotes();
+
+function initFields(){
+  document.querySelectorAll('[data-k]').forEach(el => {
+    const k = el.dataset.k;
+    if(notes[k]) el.value = notes[k];
+    el.addEventListener('input', () => {
+      notes[k] = el.value;
+      saveNotes(notes);
+      updateCount();
+    });
+  });
+  updateCount();
+}
+
+function updateCount(){
+  let n = 0;
+  Object.values(notes).forEach(v => { if(v && v.trim().length > 0) n++; });
+  const el = document.getElementById('nc');
+  if(el) el.textContent = n;
+}
+
+function doExport(){
+  const name = notes['ws-name'] || 'anonymous';
+  const date = new Date().toISOString().split('T')[0];
+  let out = 'FLYWIRE — BRAND & MESSAGING REVIEW · APRIL 2026\n';
+  out += 'Workshop notes export\n';
+  out += 'From: ' + name + '\n';
+  out += 'Date: ' + date + '\n';
+  out += '\n' + '='.repeat(60) + '\n\n';
+
+  const order = [
+    ['WORKSHOP INPUT',['ws-name','ws-q1','ws-q2','ws-q3','ws-q4','ws-q5','ws-q6']],
+    ['CORPORATE',['corp-hero','corp-platform','corp-comp','corp-trust']],
+    ['INVESTOR RELATIONS',['ir-thesis','ir-gtm','ir-moat','ir-tam']],
+    ['EDUCATION',['edu-web1','edu-sfs','edu-seh','edu-market','edu-fw5','edu-impl','edu-pers','edu-aru']],
+    ['TRAVEL',['tr-web','tr-market','tr-sertifi','tr-villa','tr-mom']],
+    ['B2B',['b2b-web','b2b-value','b2b-adopt','b2b-pers','b2b-bf','b2b-portal']],
+    ['HEALTHCARE',['hc-web','hc-cfo','hc-epic','hc-cc','hc-adv']],
+    ['FEEDBACK (internal)',['fb-internal']],
+    ['DIRECTION & CONCEPTS',['dir-v3','dir-opt1','dir-opt2','dir-opt3','dir-opt4','dir-opt5','dir-opt6','dir-opt7','dir-opt8','dir-opt9','dir-vertical','dir-ir']]
+  ];
+
+  order.forEach(([section,keys]) => {
+    let hasAny = false;
+    let block = section + '\n' + '-'.repeat(section.length) + '\n';
+    keys.forEach(k => {
+      if(notes[k] && notes[k].trim().length > 0){
+        hasAny = true;
+        block += '\n· ' + k + ':\n  ' + notes[k].replace(/\n/g,'\n  ') + '\n';
+      }
+    });
+    if(hasAny) out += block + '\n';
+  });
+
+  if(out.indexOf('·') === -1){
+    alert('No notes yet — add some feedback throughout the document first.');
+    return;
+  }
+
+  const blob = new Blob([out],{type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'flywire-brand-review-notes-' + (name.replace(/\s+/g,'-').toLowerCase()) + '-' + date + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function viewNotes(){
+  const filled = Object.entries(notes).filter(([k,v]) => v && v.trim().length > 0);
+  if(filled.length === 0){
+    alert('No notes yet. Add feedback throughout the document to see it here.');
+    return;
+  }
+  let msg = 'YOUR NOTES (' + filled.length + ')\n\n';
+  filled.forEach(([k,v]) => {
+    msg += '• ' + k + ':\n  ' + v + '\n\n';
+  });
+  alert(msg);
+}
+
+/* ══════════ Sidebar nav highlighting on scroll ══════════ */
+function initNavHighlight(){
+  const sections = document.querySelectorAll('section.section');
+  const links = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const id = e.target.id;
+        links.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+
+  sections.forEach(s => observer.observe(s));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initFields();
+  initNavHighlight();
+});
+</script>
 </body>
 </html>
