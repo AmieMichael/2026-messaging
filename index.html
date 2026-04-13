@@ -1113,6 +1113,24 @@ body{
   border-top:1px solid var(--border);
 }
 body.locked{overflow:hidden}
+/* Rotating words animation */
+.rotate-words{
+  display:inline-block;
+  position:relative;
+  font-style:normal;
+  min-width:180px;
+  text-align:left;
+}
+.rw-word{
+  display:none;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+.rw-word.rw-active{
+  display:inline;
+  opacity:1;
+}
+
 body.locked .main,body.locked .sidebar,body.locked .page-foot{
   filter:blur(6px);
   pointer-events:none;
@@ -2317,7 +2335,7 @@ body.locked .main,body.locked .sidebar,body.locked .page-foot{
     <div class="concept-card">
       <div class="concept-hero" style="background:linear-gradient(135deg,#017043,#48B985)">
         <div class="concept-meta"><span class="concept-num">Option 11 — Outcome: Growth</span><span class="concept-badge">Outcome-led</span></div>
-        <div class="concept-hl">Capture every payment so the people behind it can <em>enroll / study / graduate / travel / work / etc.</em></div>
+        <div class="concept-hl">Capture every payment so the people behind it can <em class="rotate-words"><span class="rw-word rw-active">enroll.</span><span class="rw-word">study.</span><span class="rw-word">graduate.</span><span class="rw-word">travel.</span><span class="rw-word">work.</span><span class="rw-word">heal.</span><span class="rw-word">grow.</span></em></div>
         <p class="concept-sub">Speed cash flow and open every revenue stream with payments infrastructure built for your industry and your workflow. Turn on global payments tech that runs within the mission-critical systems education, travel, healthcare and B2B companies rely on.</p>
       </div>
       <div class="concept-body">
@@ -2603,10 +2621,25 @@ function initGate(){
   setTimeout(() => input.focus(), 100);
 }
 
+/* ══════════ Rotating words ══════════ */
+function initRotateWords(){
+  const container = document.querySelector('.rotate-words');
+  if(!container) return;
+  const words = container.querySelectorAll('.rw-word');
+  if(words.length < 2) return;
+  let idx = 0;
+  setInterval(() => {
+    words[idx].classList.remove('rw-active');
+    idx = (idx + 1) % words.length;
+    words[idx].classList.add('rw-active');
+  }, 2000);
+}
+
 function boot(){
   initGate();
   initFields();
   initNavHighlight();
+  initRotateWords();
 }
 if(document.readyState === 'loading'){
   document.addEventListener('DOMContentLoaded', boot);
